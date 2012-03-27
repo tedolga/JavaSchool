@@ -57,7 +57,7 @@ public class Types {
         return primitiveChar;
     }
 
-    public static boolean isPrimitiveBoolean() {
+    public static boolean getPrimitiveBoolean() {
         return primitiveBoolean;
     }
 
