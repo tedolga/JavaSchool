@@ -1,4 +1,4 @@
-package one.gc;
+package two.gc;
 
 /**
  * @author Tedikova O.
