@@ -1,4 +1,4 @@
-package one.finalizing;
+package two.gc;
 
 /**
  * @author Tedikova O.

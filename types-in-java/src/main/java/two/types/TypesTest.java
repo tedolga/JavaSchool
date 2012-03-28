@@ -1,4 +1,4 @@
-package one.types;
+package two.types;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

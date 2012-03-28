@@ -1,4 +1,4 @@
-package one.finalizing;
+package two.gc;
 
 /**
  * @author Tedikova O.
@@ -6,7 +6,7 @@ package one.finalizing;
  */
 public class A {
 
-    public A(){
+    public A() {
 
     }
 
