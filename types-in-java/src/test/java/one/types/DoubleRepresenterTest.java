@@ -1,4 +1,4 @@
-package two.types;
+package one.types;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,6 +29,9 @@ public class DoubleRepresenterTest {
         doubleValue = -4.67;
         doubleRepresenter = new DoubleRepresenter(doubleValue);
         Assert.assertEquals(6700, doubleRepresenter.getFractionalPart());
+        doubleValue = -4.67557;
+        doubleRepresenter = new DoubleRepresenter(doubleValue);
+        Assert.assertEquals(6755, doubleRepresenter.getFractionalPart());
         doubleValue = 5.34E10;
         doubleRepresenter = new DoubleRepresenter(doubleValue);
         Assert.assertEquals(0, doubleRepresenter.getFractionalPart());

@@ -1,4 +1,4 @@
-package two.types;
+package one.types;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -7,13 +7,11 @@ import java.lang.reflect.Method;
  * @author Tedikova O.
  * @version 1.0
  */
-public class TypesTest {
+public class TypesPropertiesPrinter {
 
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
         printInitialValues();
         printMinMaxValues();
-
-
     }
 
     public static void printInitialValues() throws InvocationTargetException, IllegalAccessException {

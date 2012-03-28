@@ -1,4 +1,4 @@
-package two.types;
+package one.types;
 
 /**
  * @author Tedikova O.
