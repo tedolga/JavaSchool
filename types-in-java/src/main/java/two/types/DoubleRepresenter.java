@@ -28,10 +28,6 @@ public class DoubleRepresenter {
 
     @Override
     public String toString() {
-        StringBuilder stringValue = new StringBuilder();
-        stringValue.append(integralPart);
-        stringValue.append(".");
-        stringValue.append(fractionalPart);
-        return stringValue.toString();
+        return "[integral part = " + integralPart + ", fractional part = " + fractionalPart + "]";
     }
 }

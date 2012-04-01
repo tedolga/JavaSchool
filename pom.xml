@@ -10,6 +10,7 @@
         <module>garbage-collector</module>
         <module>hello-world</module>
         <module>types-in-java</module>
+        <module>flow-control</module>
     </modules>
 
     <dependencyManagement>

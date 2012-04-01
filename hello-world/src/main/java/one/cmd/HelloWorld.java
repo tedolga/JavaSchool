@@ -43,11 +43,7 @@ public class HelloWorld {
      * @return string with hello message.
      */
     private static String sayHelloToSomebody(String person) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Hello ");
-        builder.append(person);
-        builder.append("\n");
-        return builder.toString();
+        return "Hello " + person + "!\n";
     }
 
     /**
@@ -58,8 +54,14 @@ public class HelloWorld {
      * @throws ArrayIndexOutOfBoundsException in case if count of element in array is less than {@code count}s parameter.
      */
     private static void printSomeElements(String[] elements, int count) {
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < count; i++) {
-            System.out.println("[" + i + "] = " + elements[i]);
+            builder.append("[");
+            builder.append(i);
+            builder.append("]=");
+            builder.append(elements[i]);
+            builder.append("\n");
         }
+        System.out.println(builder);
     }
 }

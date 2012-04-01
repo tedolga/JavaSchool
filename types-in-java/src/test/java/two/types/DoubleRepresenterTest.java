@@ -41,6 +41,6 @@ public class DoubleRepresenterTest {
     public void testToString() throws Exception {
         double doubleValue = -4.67;
         DoubleRepresenter doubleRepresenter = new DoubleRepresenter(doubleValue);
-        Assert.assertEquals("-4.6700", doubleRepresenter.toString());
+        Assert.assertEquals("[integral part = -4, fractional part = 6700]", doubleRepresenter.toString());
     }
 }

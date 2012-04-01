@@ -12,6 +12,7 @@ public class TypesPropertiesPrinter {
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
         printInitialValues();
         printMinMaxValues();
+        printArithmeticTricks();
     }
 
     public static void printInitialValues() throws InvocationTargetException, IllegalAccessException {
@@ -80,5 +81,29 @@ public class TypesPropertiesPrinter {
         System.out.println(stringBuilder);
     }
 
+    private static void printArithmeticTricks() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Arithmetic tricks\n");
+        builder.append("-----------------------------------------------\n");
+        builder.append("Try to divide 7 by zero ... 7/0 = ");
+        try {
+            builder.append(7 / 0);
+        } catch (ArithmeticException ae) {
+            builder.append("We can't do it");
+        }
+        builder.append("\n");
+        builder.append("Try to divide 7f by zero ... 7f/0 = ");
+        builder.append(7f / 0);
+        builder.append("\n");
+        builder.append("Try to multiply Double.NEGATIVE_INFINITY on zero ... Double.NEGATIVE_INFINITY * 0 = ");
+        builder.append(Double.NEGATIVE_INFINITY * 0);
+        builder.append("\n");
+        builder.append("Try to multiply Double.POSITIVE_INFINITY on zero ... Double.POSITIVE_INFINITY * 0 = ");
+        builder.append(Double.POSITIVE_INFINITY * 0);
+        builder.append("\n");
+        builder.append("Try to divide zero on zero ... 0f/0 = ");
+        builder.append(0f / 0);
+        System.out.println(builder.toString());
+    }
 
 }
