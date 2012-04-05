@@ -1,7 +1,7 @@
 package two.flow;
 
 /**
- * Provides several methods to sort an array of integers
+ * Provides several methods to sort arrays
  *
  * @author Tedikova O.
  * @version 1.0
@@ -17,11 +17,23 @@ public class ArraySortUtils {
         return quickSort1(array, 0, array.length - 1);
     }
 
+    /**
+     * Implements merge sort
+     *
+     * @param array to sort
+     * @return sorted array
+     */
     public static int[] mergeSort(int[] array) {
         mergeSort1(array, new int[array.length], 0, array.length);
         return array;
     }
 
+    /**
+     * Implements bubble sort
+     *
+     * @param array to sort
+     * @return sorted array
+     */
     public static int[] bubbleSort(int[] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = array.length - 1; j > i; j--) {
@@ -33,6 +45,15 @@ public class ArraySortUtils {
         return array;
     }
 
+    /**
+     * Sorts an array of integers by sharing it on 2 parts. Each part is ordered by the same algorithm recursively.
+     * Then 2 sorted parts merges into one.
+     *
+     * @param array  to sort
+     * @param buffer to merge 2 sorted parts
+     * @param off    start index of the part which should be sorted
+     * @param len    length of the part which should be sorted
+     */
     private static void mergeSort1(int[] array, int[] buffer, int off, int len) {
         if (len > 1) {
             int firstLen = len / 2;
@@ -52,7 +73,16 @@ public class ArraySortUtils {
         }
     }
 
-
+    /**
+     * Sorts an array of integers by choosing reference element and moving all the elements which are less than
+     * reference element to the right of it, and all the elements which are greater than it - to the left.
+     * Then the left and right varieties processes recursively by the same algorithm
+     *
+     * @param array to sort
+     * @param start first index of the part which should be sorted
+     * @param end   last index of the part which should be sorted
+     * @return sorted array
+     */
     private static int[] quickSort1(int[] array, int start, int end) {
         int i = start;
         int j = end;
@@ -77,6 +107,13 @@ public class ArraySortUtils {
         return array;
     }
 
+    /**
+     * Changes 2 elements of array by places
+     *
+     * @param array  array which contains elements to be swap
+     * @param first  one of the elements to be swap
+     * @param second one of the elements to be swap
+     */
     private static void swap(int[] array, int first, int second) {
         int temp = array[second];
         array[second] = array[first];
