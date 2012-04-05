@@ -10,7 +10,7 @@ import org.junit.Test;
 public class TextRepresenterTest {
     @Test
     public void testRepresentText() throws Exception {
-        String sourceString = ("bubble GuM. TASTY!\n");
+        String sourceString = "bubble GuM. TASTY!\n";
         Assert.assertEquals("Bubble gum. TASTY!\n", TextRepresenter.representText(sourceString));
 
     }

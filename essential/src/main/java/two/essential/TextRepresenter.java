@@ -18,9 +18,7 @@ public class TextRepresenter {
                     if (currentState == TextStates.WORD) {
                         addWord(tempWord, result, previousState);
                     }
-                    previousState = currentState;
-                    currentState = TextStates.FULL_STOP;
-                    result.append(sourceChar);
+                    addToResult(previousState, currentState, result, sourceChar);
                     break;
                 case '\t':
                 case '\r':
@@ -29,10 +27,7 @@ public class TextRepresenter {
                     if (currentState == TextStates.WORD) {
                         addWord(tempWord, result, previousState);
                     }
-                    previousState = currentState;
-                    currentState = TextStates.SPECIAL_CHARACTER;
-                    result.append(sourceChar);
-
+                    addToResult(previousState, currentState, result, sourceChar);
                     break;
                 default:
                     if (tempWord.length() == 0) {
@@ -67,8 +62,10 @@ public class TextRepresenter {
         tempWord.setLength(0);
     }
 
-    private static void addAnotherChar() {
-
+    private static void addToResult(TextStates previousState, TextStates currentState, StringBuilder result, char sourceChar) {
+        previousState = currentState;
+        currentState = TextStates.FULL_STOP;
+        result.append(sourceChar);
     }
 
 }
