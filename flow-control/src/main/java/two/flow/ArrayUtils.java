@@ -11,41 +11,28 @@ public class ArrayUtils {
     }
 
     public static int[] mergeSort(int[] array) {
-        mergeSort1(array, 0, array.length);
+        mergeSort1(array, new int[array.length], 0, array.length);
         return array;
     }
 
-    private static void mergeSort1(int[] array, int off, int len) {
+    public static int[] bubbleSort(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = array.length - 1; j > i; j--) {
+                if (array[j] < array[j - 1]) {
+                    swap(array, j, j - 1);
+                }
+            }
+        }
+        return array;
+    }
 
-//        if (len > 1) {
-//            int splitIndex = len / 2;
-//            int[] firstArray = new int[splitIndex];
-//            System.arraycopy(array, 0, firstArray, 0, splitIndex);
-//            int[] secondArray = new int[array.length - splitIndex];
-//            System.arraycopy(array, splitIndex, secondArray, 0, array.length - splitIndex);
-//            firstArray = mergeSort1(firstArray, 0, firstArray.length);
-//            secondArray = mergeSort1(secondArray, 0, secondArray.length);
-//            int[] resultArray = new int[firstArray.length + secondArray.length];
-//            for (int i = 0, j = 0, k = 0; k < resultArray.length; k++) {
-//                if (j >= secondArray.length || (i < firstArray.length && firstArray[i] <= secondArray[j])) {
-//                    resultArray[k] = firstArray[i];
-//                    i++;
-//                } else {
-//                    resultArray[k] = secondArray[j];
-//                    j++;
-//                }
-//            }
-//            return resultArray;
-//        } else {
-//            return array;
-//        }
+    private static void mergeSort1(int[] array, int[] buffer, int off, int len) {
         if (len > 1) {
             int firstLen = len / 2;
             int secondLen = len - firstLen;
-            mergeSort1(array, off, firstLen);
-            mergeSort1(array, firstLen + off, secondLen);
-            int[] buffer = new int[firstLen + secondLen];
-            for (int i = off, j = firstLen + off, k = 0; k < buffer.length; k++) {
+            mergeSort1(array, buffer, off, firstLen);
+            mergeSort1(array, buffer, firstLen + off, secondLen);
+            for (int i = off, j = firstLen + off, k = 0; k < firstLen + secondLen; k++) {
                 if (j >= secondLen + firstLen + off || (i < firstLen + off && array[i] <= array[j])) {
                     buffer[k] = array[i];
                     i++;
@@ -59,11 +46,7 @@ public class ArrayUtils {
     }
 
 
-    private static int[] quickSort1
-            (
-                    int[] array,
-                    int start,
-                    int end) {
+    private static int[] quickSort1(int[] array, int start, int end) {
         int i = start;
         int j = end;
         int refElement = array[(end - start) / 2 + start];
