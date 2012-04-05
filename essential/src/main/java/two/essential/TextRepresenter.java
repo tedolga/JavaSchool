@@ -11,14 +11,17 @@ public class TextRepresenter {
         StringBuilder tempWord = new StringBuilder();
         TextStates previousState = TextStates.START;
         TextStates currentState = TextStates.START;
-        char[] sourceChars = source.toCharArray();
-        for (char sourceChar : sourceChars) {
+        CharSequence sourceChars = source.subSequence(0, source.length());
+        for (int i = 0; i < sourceChars.length(); i++) {
+            char sourceChar = sourceChars.charAt(i);
             switch (sourceChar) {
                 case '.':
                     if (currentState == TextStates.WORD) {
                         addWord(tempWord, result, previousState);
                     }
-                    addToResult(previousState, currentState, result, sourceChar);
+                    previousState = currentState;
+                    currentState = TextStates.FULL_STOP;
+                    result.append(sourceChar);
                     break;
                 case '\t':
                 case '\r':
@@ -27,7 +30,9 @@ public class TextRepresenter {
                     if (currentState == TextStates.WORD) {
                         addWord(tempWord, result, previousState);
                     }
-                    addToResult(previousState, currentState, result, sourceChar);
+                    previousState = currentState;
+                    currentState = TextStates.SPECIAL_CHARACTER;
+                    result.append(sourceChar);
                     break;
                 default:
                     if (tempWord.length() == 0) {
@@ -60,12 +65,6 @@ public class TextRepresenter {
         }
         result.append(tempWord);
         tempWord.setLength(0);
-    }
-
-    private static void addToResult(TextStates previousState, TextStates currentState, StringBuilder result, char sourceChar) {
-        previousState = currentState;
-        currentState = TextStates.FULL_STOP;
-        result.append(sourceChar);
     }
 
 }
