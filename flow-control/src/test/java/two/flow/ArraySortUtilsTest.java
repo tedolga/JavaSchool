@@ -9,36 +9,33 @@ import java.util.Random;
  * @author Tedikova O.
  * @version 1.0
  */
-public class ArrayUtilsTest {
+public class ArraySortUtilsTest {
     @Test
     public void testQuickSort() throws Exception {
-        Assert.assertArrayEquals(new int[]{2}, ArrayUtils.quickSort(new int[]{2}));
-        Assert.assertArrayEquals(new int[]{2, 3, 5, 6, 9}, ArrayUtils.quickSort(new int[]{3, 5, 6, 9, 2}));
-        Assert.assertArrayEquals(new int[]{2, 7}, ArrayUtils.quickSort(new int[]{7, 2}));
-        Assert.assertArrayEquals(new int[]{2, 2, 2, 2, 5}, ArrayUtils.quickSort(new int[]{2, 2, 5, 2, 2}));
+        Assert.assertArrayEquals(new int[]{2}, ArraySortUtils.quickSort(new int[]{2}));
+        Assert.assertArrayEquals(new int[]{2, 3, 5, 6, 9}, ArraySortUtils.quickSort(new int[]{3, 5, 6, 9, 2}));
+        Assert.assertArrayEquals(new int[]{2, 7}, ArraySortUtils.quickSort(new int[]{7, 2}));
+        Assert.assertArrayEquals(new int[]{2, 2, 2, 2, 5}, ArraySortUtils.quickSort(new int[]{2, 2, 5, 2, 2}));
     }
 
     @Test
     public void testMergeSort() throws Exception {
-        Assert.assertArrayEquals(new int[]{2}, ArrayUtils.mergeSort(new int[]{2}));
-        Assert.assertArrayEquals(new int[]{2, 3, 5, 6, 9}, ArrayUtils.mergeSort(new int[]{3, 5, 6, 9, 2}));
-        Assert.assertArrayEquals(new int[]{2, 7}, ArrayUtils.mergeSort(new int[]{7, 2}));
-        Assert.assertArrayEquals(new int[]{2, 2, 2, 2, 5}, ArrayUtils.mergeSort(new int[]{2, 2, 5, 2, 2}));
+        Assert.assertArrayEquals(new int[]{2}, ArraySortUtils.mergeSort(new int[]{2}));
+        Assert.assertArrayEquals(new int[]{2, 3, 5, 6, 9}, ArraySortUtils.mergeSort(new int[]{3, 5, 6, 9, 2}));
+        Assert.assertArrayEquals(new int[]{2, 7}, ArraySortUtils.mergeSort(new int[]{7, 2}));
+        Assert.assertArrayEquals(new int[]{2, 2, 2, 2, 5}, ArraySortUtils.mergeSort(new int[]{2, 2, 5, 2, 2}));
     }
 
     @Test
     public void testBubbleSort() throws Exception {
-        Assert.assertArrayEquals(new int[]{2}, ArrayUtils.bubbleSort(new int[]{2}));
-        Assert.assertArrayEquals(new int[]{2, 3, 5, 6, 9}, ArrayUtils.bubbleSort(new int[]{3, 5, 6, 9, 2}));
-        Assert.assertArrayEquals(new int[]{2, 7}, ArrayUtils.bubbleSort(new int[]{7, 2}));
-        Assert.assertArrayEquals(new int[]{2, 2, 2, 2, 5}, ArrayUtils.bubbleSort(new int[]{2, 2, 5, 2, 2}));
+        Assert.assertArrayEquals(new int[]{2}, ArraySortUtils.bubbleSort(new int[]{2}));
+        Assert.assertArrayEquals(new int[]{2, 3, 5, 6, 9}, ArraySortUtils.bubbleSort(new int[]{3, 5, 6, 9, 2}));
+        Assert.assertArrayEquals(new int[]{2, 7}, ArraySortUtils.bubbleSort(new int[]{7, 2}));
+        Assert.assertArrayEquals(new int[]{2, 2, 2, 2, 5}, ArraySortUtils.bubbleSort(new int[]{2, 2, 5, 2, 2}));
     }
 
     @Test
     public void testSortingSpeed() {
-        printSortingSpeed(10);
-        printSortingSpeed(100);
-        printSortingSpeed(1000);
         printSortingSpeed(10000);
         printSortingSpeed(100000);
     }
@@ -57,7 +54,7 @@ public class ArrayUtilsTest {
         results.append("\n");
         results.append("Work time in ms:");
         long startTime = System.currentTimeMillis();
-        ArrayUtils.bubbleSort(testArray);
+        ArraySortUtils.bubbleSort(testArray);
         long endTime = System.currentTimeMillis();
         results.append(endTime - startTime);
         results.append("\n");
@@ -69,7 +66,7 @@ public class ArrayUtilsTest {
         results.append("\n");
         results.append("Work time in ms:");
         startTime = System.currentTimeMillis();
-        ArrayUtils.quickSort(testArray);
+        ArraySortUtils.quickSort(testArray);
         endTime = System.currentTimeMillis();
         results.append(endTime - startTime);
         results.append("\n");
@@ -81,7 +78,7 @@ public class ArrayUtilsTest {
         results.append("\n");
         results.append("Work time in ms:");
         startTime = System.currentTimeMillis();
-        ArrayUtils.mergeSort(testArray);
+        ArraySortUtils.mergeSort(testArray);
         endTime = System.currentTimeMillis();
         results.append(endTime - startTime);
         results.append("\n");

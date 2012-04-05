@@ -67,10 +67,4 @@ public class MathTricksTest {
         Assert.assertFalse(MathTricks.isPrime(1));
     }
 
-    @Test
-    public void testCalculateFactorial() {
-        Assert.assertEquals(1, MathTricks.calculateFactorial(0));
-        Assert.assertEquals(2, MathTricks.calculateFactorial(2));
-        Assert.assertEquals(3628800, MathTricks.calculateFactorial(10));
-    }
 }

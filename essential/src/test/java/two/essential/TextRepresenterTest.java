@@ -12,6 +12,7 @@ public class TextRepresenterTest {
     public void testRepresentText() throws Exception {
         String sourceString = "bubble GuM. TASTY!\n";
         Assert.assertEquals("Bubble gum. TASTY!\n", TextRepresenter.representText(sourceString));
-
+        sourceString = "hAve\ta nice DAY.Uhu!.";
+        Assert.assertEquals("Have\ta nice DAY.Uhu!.", TextRepresenter.representText(sourceString));
     }
 }

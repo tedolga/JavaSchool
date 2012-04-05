@@ -1,6 +1,8 @@
 package two.flow;
 
 /**
+ * Executes some math functions from {@link two.flow.MathTricks}
+ *
  * @author Tedikova O.
  * @version 1.0
  */

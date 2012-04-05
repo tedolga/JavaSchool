@@ -1,11 +1,18 @@
 package two.flow;
 
 /**
+ * Provides several methods to sort an array of integers
+ *
  * @author Tedikova O.
  * @version 1.0
  */
-public class ArrayUtils {
-
+public class ArraySortUtils {
+    /**
+     * Implements quick sort of array of integers
+     *
+     * @param array to sort
+     * @return sorted array
+     */
     public static int[] quickSort(int[] array) {
         return quickSort1(array, 0, array.length - 1);
     }
