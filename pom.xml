@@ -11,6 +11,7 @@
         <module>hello-world</module>
         <module>types-in-java</module>
         <module>flow-control</module>
+        <module>essential</module>
     </modules>
 
     <dependencyManagement>
