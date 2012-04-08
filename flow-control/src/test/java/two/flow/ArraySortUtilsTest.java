@@ -35,17 +35,24 @@ public class ArraySortUtilsTest {
     }
 
     @Test
-    public void testSortingSpeed() {
-        printSortingSpeed(10000);
-        printSortingSpeed(100000);
+    public void testSortingSpeedRandom() {
+        System.out.println("----------------------Random elements-----------------------------");
+        printSortingSpeedRandom(10000);
+        printSortingSpeedRandom(100000);
     }
 
-    private void printSortingSpeed(int elementsCount) {
+    private void printSortingSpeedRandom(int elementsCount) {
         int[] testArray = new int[elementsCount];
         Random random = new Random();
         for (int i = 0; i < testArray.length; i++) {
             testArray[i] = random.nextInt();
         }
+        printBubbleResults(testArray);
+        printQuickResults(testArray);
+        printMergeResults(testArray);
+    }
+
+    private void printBubbleResults(int[] testArray) {
         StringBuilder results = new StringBuilder();
         results.append("Bubble sorting\n");
         results.append("---------------------------------------\n");
@@ -59,27 +66,40 @@ public class ArraySortUtilsTest {
         results.append(endTime - startTime);
         results.append("\n");
         results.append("---------------------------------------\n");
+        System.out.println(results);
+    }
+
+    private void printQuickResults(int[] testArray) {
+        StringBuilder results = new StringBuilder();
+        results.append("---------------------------------------\n");
         results.append("Quick sorting\n");
         results.append("---------------------------------------\n");
         results.append("Number of elements: ");
         results.append(testArray.length);
         results.append("\n");
         results.append("Work time in ms:");
-        startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         ArraySortUtils.quickSort(testArray);
-        endTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
         results.append(endTime - startTime);
         results.append("\n");
         results.append("---------------------------------------\n");
+        System.out.println(results);
+    }
+
+    private void printMergeResults(int[] testArray) {
+        StringBuilder results = new StringBuilder();
+        printBubbleResults(testArray);
+        printQuickResults(testArray);
         results.append("Merge sorting\n");
         results.append("---------------------------------------\n");
         results.append("Number of elements: ");
         results.append(testArray.length);
         results.append("\n");
         results.append("Work time in ms:");
-        startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         ArraySortUtils.mergeSort(testArray);
-        endTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
         results.append(endTime - startTime);
         results.append("\n");
         results.append("---------------------------------------\n");

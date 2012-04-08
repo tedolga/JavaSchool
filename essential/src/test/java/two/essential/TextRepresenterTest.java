@@ -1,7 +1,9 @@
 package two.essential;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
+import static two.essential.TextRepresenter.*;
 
 /**
  * @author O. Tedikova
@@ -9,32 +11,59 @@ import org.junit.Test;
  */
 public class TextRepresenterTest {
     @Test
+    public void testIsAcronym() {
+        assertTrue(isAcronym("GUM"));
+        assertFalse(isAcronym("gum"));
+        assertFalse(isAcronym("gUM"));
+        assertFalse(isAcronym("GUm"));
+    }
+
+    @Test
+    public void testIsDelimiter() {
+        assertTrue(isDelimiter(" "));
+        assertTrue(isDelimiter("\t"));
+        assertTrue(isDelimiter("\r"));
+        assertTrue(isDelimiter("\n"));
+        assertTrue(isDelimiter("."));
+        assertFalse(isDelimiter(" h"));
+        assertFalse(isDelimiter("m"));
+    }
+
+    @Test
+    public void testToMixedCase() {
+        assertEquals("A", toMixedCase("a"));
+        assertEquals("Alba", toMixedCase("alba"));
+        assertEquals("Alba", toMixedCase("aLBa"));
+        assertEquals("A", toMixedCase("a"));
+    }
+
+    @Test
     public void testRepresentText() throws Exception {
         String sourceString = "BUBBLE.";
-        Assert.assertEquals("BUBBLE.", TextRepresenter.representText(sourceString));
+        assertEquals("BUBBLE.", representText(sourceString));
         sourceString = "bubble.";
-        Assert.assertEquals("Bubble.", TextRepresenter.representText(sourceString));
+        assertEquals("Bubble.", representText(sourceString));
         sourceString = " bubble.";
-        Assert.assertEquals(" Bubble.", TextRepresenter.representText(sourceString));
+        assertEquals(" Bubble.", representText(sourceString));
         sourceString = " \tbubble.";
-        Assert.assertEquals(" \tBubble.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble.", representText(sourceString));
         sourceString = " \tbubble gUm.";
-        Assert.assertEquals(" \tBubble gum.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble gum.", representText(sourceString));
         sourceString = " \tbubble \ngUm.";
-        Assert.assertEquals(" \tBubble \ngum.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble \ngum.", representText(sourceString));
         sourceString = " \tbubble \nGUM.";
-        Assert.assertEquals(" \tBubble \nGUM.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble \nGUM.", representText(sourceString));
         sourceString = " \tbubble \ngUM .";
-        Assert.assertEquals(" \tBubble \ngum .", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble \ngum .", representText(sourceString));
         sourceString = " \tbubble \ngUM .yammy.";
-        Assert.assertEquals(" \tBubble \ngum .Yammy.", TextRepresenter.representText(sourceString));
-        sourceString = " \tbubble \ngUM .YAMMY";
-        Assert.assertEquals(" \tBubble \ngum .YAMMY.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble \ngum .Yammy.", representText(sourceString));
+        sourceString = " \tbubble \ngUM .YAMMY.";
+        assertEquals(" \tBubble \ngum .YAMMY.", representText(sourceString));
         sourceString = " \tbubble \ngUM . YAmMY.";
-        Assert.assertEquals(" \tBubble \ngum . Yammy.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble \ngum . Yammy.", representText(sourceString));
         sourceString = " \tbubble \ngUM . \rYAmMY.";
-        Assert.assertEquals(" \tBubble \ngum . \rYammy.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble \ngum . \rYammy.", representText(sourceString));
         sourceString = " \tbubble \ngUM . \tYAMMY.";
-        Assert.assertEquals(" \tBubble \ngum . \tYAMMY.", TextRepresenter.representText(sourceString));
+        assertEquals(" \tBubble \ngum . \tYAMMY.", representText(sourceString));
     }
 }

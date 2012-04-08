@@ -1,5 +1,7 @@
 package two.essential;
 
+import java.util.StringTokenizer;
+
 /**
  * @author O. Tedikova
  * @version 1.0
@@ -7,64 +9,59 @@ package two.essential;
 public class TextRepresenter {
 
     public static String representText(String source) {
-        StringBuilder result = new StringBuilder();
-        StringBuilder tempWord = new StringBuilder();
-        TextStates previousState = TextStates.START;
-        TextStates currentState = TextStates.START;
-        CharSequence sourceChars = source.subSequence(0, source.length());
-        for (int i = 0; i < sourceChars.length(); i++) {
-            char sourceChar = sourceChars.charAt(i);
-            switch (sourceChar) {
-                case '.':
-                    if (currentState == TextStates.WORD) {
-                        addWord(tempWord, result, previousState);
-                    }
-                    previousState = currentState;
-                    currentState = TextStates.FULL_STOP;
-                    result.append(sourceChar);
-                    break;
+        StringTokenizer tokenizer = new StringTokenizer(source, " .\t\r\n", true);
+        StringBuilder result = new StringBuilder(source.length());
+        boolean fullStop = true;
+        while (tokenizer.hasMoreTokens()) {
+            String nextToken = tokenizer.nextToken();
+            if (!isDelimiter(nextToken)) {
+                if (!isAcronym(nextToken)) {
+                    nextToken = fullStop ? toMixedCase(nextToken) : nextToken.toLowerCase();
+                }
+                fullStop = false;
+            } else {
+                if (".".equals(nextToken)) {
+                    fullStop = true;
+                }
+            }
+            result.append(nextToken);
+        }
+        return result.toString();
+    }
+
+    public static boolean isDelimiter(String token) {
+        if (token.length() > 1) {
+            return false;
+        } else {
+            switch (token.charAt(0)) {
+                case ' ':
                 case '\t':
                 case '\r':
                 case '\n':
-                case ' ':
-                    if (currentState == TextStates.WORD) {
-                        addWord(tempWord, result, previousState);
-                    }
-                    previousState = currentState;
-                    currentState = TextStates.SPECIAL_CHARACTER;
-                    result.append(sourceChar);
-                    break;
+                case '.':
+                    return true;
                 default:
-                    if (tempWord.length() == 0) {
-                        previousState = currentState;
-                        currentState = TextStates.WORD;
-                    }
-                    tempWord.append(sourceChar);
-                    break;
-
+                    return false;
             }
-
         }
-
-        return result.toString();
-
     }
 
-    private static void addWord(StringBuilder tempWord, StringBuilder result, TextStates previousState) {
-        if (!tempWord.toString().equals(tempWord.toString().toUpperCase())) {
-            if (previousState == TextStates.START || previousState == TextStates.FULL_STOP) {
-                tempWord.setCharAt(0, Character.toUpperCase(tempWord.charAt(0)));
-                for (int i = 1; i < tempWord.length(); i++) {
-                    tempWord.setCharAt(i, Character.toLowerCase(tempWord.charAt(i)));
-                }
-            } else {
-                for (int i = 0; i < tempWord.length(); i++) {
-                    tempWord.setCharAt(i, Character.toLowerCase(tempWord.charAt(i)));
-                }
+    public static boolean isAcronym(String word) {
+        for (int i = 0; i < word.length(); i++) {
+            if (!Character.isUpperCase(word.charAt(i))) {
+                return false;
             }
         }
-        result.append(tempWord);
-        tempWord.setLength(0);
+        return true;
+    }
+
+    public static String toMixedCase(String word) {
+        char[] chars = new char[word.length()];
+        chars[0] = Character.toUpperCase(word.charAt(0));
+        for (int i = 1; i < chars.length; i++) {
+            chars[i] = Character.toLowerCase(word.charAt(i));
+        }
+        return new String(chars);
     }
 
 }
