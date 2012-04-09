@@ -14,8 +14,6 @@ import java.util.Scanner;
 public class CalendarUtils {
 
     private static final String DATE_FORMAT = "dd/MM/yyyy hh:mm";
-    private static final long MILLISECONDS_IN_BIGGEST_MONTH = 2678400000L;
-    private static final long MILLISECONDS_IN_SMALLEST_MONTH = 2419200000L;
 
     public static void main(String[] args) throws ParseException {
         System.out.println("Enter two dates");
@@ -32,13 +30,8 @@ public class CalendarUtils {
         Calendar secondCalendar = stringToCalendar(secondDateString);
         roundTime(firstCalendar);
         roundTime(secondCalendar);
-        long millisDifference = Math.abs(firstCalendar.getTimeInMillis() - secondCalendar.getTimeInMillis());
         int monthDifference = firstCalendar.get(Calendar.MONTH) - secondCalendar.get(Calendar.MONTH);
-        if (millisDifference <= MILLISECONDS_IN_SMALLEST_MONTH) {
-            return "YES";
-        } else if (millisDifference > MILLISECONDS_IN_BIGGEST_MONTH) {
-            return "NO";
-        } else if (Math.abs(monthDifference) > 1) {
+        if (Math.abs(monthDifference) > 1) {
             return "NO";
         } else if (Math.abs(monthDifference) == 1) {
             Calendar olderDate = (firstCalendar.compareTo(secondCalendar) > 0) ? firstCalendar : secondCalendar;
