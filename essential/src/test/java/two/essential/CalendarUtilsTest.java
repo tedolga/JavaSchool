@@ -20,6 +20,7 @@ public class CalendarUtilsTest {
         assertTrue(compareDates(stringToCalendar("01/03/2012 12:03"), stringToCalendar("01/02/2012 01:03")));
         assertTrue(compareDates(stringToCalendar("01/03/2012 12:03"), stringToCalendar("31/03/2012 01:03")));
         assertTrue(compareDates(stringToCalendar("01/03/2011 12:03"), stringToCalendar("02/02/2011 16:03")));
+        assertTrue(compareDates(stringToCalendar("08/04/2012 05:03"), stringToCalendar("09/04/2012 05:03")));
         assertTrue(compareDates(stringToCalendar("31/12/2011 12:03"), stringToCalendar("15/01/2012 16:03")));
         assertFalse(compareDates(stringToCalendar("01/04/2012 12:03"), stringToCalendar("02/05/2012 16:03")));
         assertFalse(compareDates(stringToCalendar("01/01/2012 12:03"), stringToCalendar("02/02/2012 10:03")));

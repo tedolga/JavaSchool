@@ -32,18 +32,14 @@ public class CalendarUtils {
         Calendar smallerDate = sortedDates[0];
         Calendar biggerDate = sortedDates[1];
         biggerDate.add(Calendar.MONTH, -1);
-        if (!smallerDate.before(biggerDate)) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return !smallerDate.before(biggerDate);
     }
 
     public static String determineDayOfWeek(String dateString) throws ParseException {
         Calendar calendar = stringToCalendar(dateString);
         return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, new Locale("US"));
     }
+
 
     public static Calendar stringToCalendar(String dateString) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
