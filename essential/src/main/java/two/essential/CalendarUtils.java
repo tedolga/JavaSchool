@@ -22,37 +22,30 @@ public class CalendarUtils {
         String secondDateString = scanner.nextLine();
         System.out.println(firstDateString + " day of week is " + determineDayOfWeek(firstDateString));
         System.out.println(secondDateString + " day of week is " + determineDayOfWeek(secondDateString));
-        System.out.println("Dates are within 1 month from one another :" + compareDates(firstDateString, secondDateString));
+        System.out.println("Dates are within 1 month from one another :" + compareDates(stringToCalendar(firstDateString), stringToCalendar(secondDateString)));
     }
 
-    public static String compareDates(String firstDateString, String secondDateString) throws ParseException {
-        Calendar firstCalendar = stringToCalendar(firstDateString);
-        Calendar secondCalendar = stringToCalendar(secondDateString);
+    public static boolean compareDates(Calendar firstCalendar, Calendar secondCalendar) throws ParseException {
         roundTime(firstCalendar);
         roundTime(secondCalendar);
-        int monthDifference = firstCalendar.get(Calendar.MONTH) - secondCalendar.get(Calendar.MONTH);
-        if (Math.abs(monthDifference) > 1) {
-            return "NO";
-        } else if (Math.abs(monthDifference) == 1) {
-            Calendar olderDate = (firstCalendar.compareTo(secondCalendar) > 0) ? firstCalendar : secondCalendar;
-            Calendar smallerDate = (firstCalendar.compareTo(secondCalendar) < 0) ? firstCalendar : secondCalendar;
-            if (olderDate.get(Calendar.DAY_OF_MONTH) <= smallerDate.get(Calendar.DAY_OF_MONTH)) {
-                return "YES";
-            } else {
-                return "NO";
-            }
-
+        Calendar[] sortedDates = orderDates(firstCalendar, secondCalendar);
+        Calendar smallerDate = sortedDates[0];
+        Calendar biggerDate = sortedDates[1];
+        biggerDate.add(Calendar.MONTH, -1);
+        if (!smallerDate.before(biggerDate)) {
+            return true;
         } else {
-            return "YES";
+            return false;
         }
+
     }
 
     public static String determineDayOfWeek(String dateString) throws ParseException {
         Calendar calendar = stringToCalendar(dateString);
-        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, new Locale("US"));
     }
 
-    private static Calendar stringToCalendar(String dateString) throws ParseException {
+    public static Calendar stringToCalendar(String dateString) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         Date date = dateFormat.parse(dateString);
         Calendar calendar = Calendar.getInstance();
@@ -61,7 +54,21 @@ public class CalendarUtils {
     }
 
     private static void roundTime(Calendar calendar) {
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
+    }
+
+    private static Calendar[] orderDates(Calendar firstDate, Calendar secondDate) {
+        Calendar[] sortedDates = new Calendar[2];
+        if (firstDate.compareTo(secondDate) > 0) {
+            sortedDates[0] = secondDate;
+            sortedDates[1] = firstDate;
+        } else {
+            sortedDates[0] = firstDate;
+            sortedDates[1] = secondDate;
+        }
+        return sortedDates;
     }
 }

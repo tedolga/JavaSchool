@@ -29,4 +29,16 @@ public class BigFactorialExecutor {
         }
         return result;
     }
+
+    public static int calculateZerosInFactorialString(int number) {
+        BigDecimal factorial = calculateFactorial(number);
+        String sequence = factorial.toString();
+        int countOfZeros = 0;
+        int i = sequence.length() - 1;
+        while (sequence.charAt(i) == '0') {
+            countOfZeros += 1;
+            i--;
+        }
+        return countOfZeros;
+    }
 }
