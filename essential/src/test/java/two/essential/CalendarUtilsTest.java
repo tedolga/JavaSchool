@@ -33,6 +33,6 @@ public class CalendarUtilsTest {
 
     @Test
     public void testDetermineDayOfWeek() throws Exception {
-        assertEquals("Monday", CalendarUtils.determineDayOfWeek("09/04/2012 12:03"));
+        assertEquals("Monday", CalendarUtils.determineDayOfWeek(stringToCalendar("09/04/2012 12:03")));
     }
 }
