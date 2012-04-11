@@ -12,6 +12,7 @@
         <module>types-in-java</module>
         <module>flow-control</module>
         <module>essential</module>
+        <module>collections</module>
     </modules>
 
     <dependencyManagement>
