@@ -43,18 +43,14 @@ public class LinkedList {
 
     public boolean removeAt(int index) {
         if (index >= 0 && index < size) {
-            int elementIndex = 0;
-            ListElement currentElement = head;
-            while (elementIndex != index) {
-                currentElement = currentElement.getNext();
-            }
+            ListElement currentElement = getListElement(index);
             ListElement previousElement = currentElement.getPrevious();
             ListElement nextElement = currentElement.getNext();
             if (previousElement == null) {
-                nextElement.setPrevious(null);
+                nextElement.setPrevious(previousElement);
                 head = nextElement;
             } else if (nextElement == null) {
-                previousElement.setNext(null);
+                previousElement.setNext(nextElement);
                 tail = previousElement;
             } else {
                 nextElement.setPrevious(previousElement);
@@ -69,9 +65,61 @@ public class LinkedList {
 
     public boolean insertAt(int index, Object element) {
         if (index >= 0 && index <= size) {
+            ListElement currentElement = getListElement(index);
+            ListElement previousElement = (currentElement != null) ? currentElement.getPrevious() : null;
+            if (index == size) {
+                addLast(element);
+            } else if (previousElement == null) {
+                addFirst(element);
+            } else {
+                ListElement newElement = new ListElement(element, previousElement, currentElement);
+                previousElement.setNext(newElement);
+                currentElement.setPrevious(newElement);
+                size++;
+            }
             return true;
         } else {
             return false;
+        }
+    }
+
+    public boolean setElement(int index, Object element) {
+        if (index >= 0 && index < size) {
+            getListElement(index).setValue(element);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Vector toVector() {
+        Vector vector = new Vector(size);
+        int elementIndex = 0;
+        ListElement currentElement = head;
+        while (elementIndex < size) {
+            vector.addElement(currentElement.getValue());
+            currentElement = currentElement.getNext();
+            elementIndex++;
+        }
+        return vector;
+    }
+
+    public Object getElement(int index) {
+        ListElement element = getListElement(index);
+        return (element != null) ? element.getValue() : null;
+    }
+
+    private ListElement getListElement(int index) {
+        if (index >= 0 && index < size) {
+            int elementIndex = 0;
+            ListElement currentElement = head;
+            while (elementIndex != index) {
+                currentElement = currentElement.getNext();
+                elementIndex++;
+            }
+            return currentElement;
+        } else {
+            return null;
         }
     }
 
@@ -87,7 +135,7 @@ public class LinkedList {
             this.next = next;
         }
 
-        public Object getValue() {
+        private Object getValue() {
             return value;
         }
 
@@ -95,19 +143,19 @@ public class LinkedList {
             this.value = value;
         }
 
-        public ListElement getPrevious() {
+        private ListElement getPrevious() {
             return previous;
         }
 
-        public void setPrevious(ListElement previous) {
+        private void setPrevious(ListElement previous) {
             this.previous = previous;
         }
 
-        public ListElement getNext() {
+        private ListElement getNext() {
             return next;
         }
 
-        public void setNext(ListElement next) {
+        private void setNext(ListElement next) {
             this.next = next;
         }
     }
