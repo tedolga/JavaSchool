@@ -44,9 +44,8 @@ public class CalendarUtils {
     public static boolean compareDates(Calendar firstCalendar, Calendar secondCalendar) {
         roundTime(firstCalendar);
         roundTime(secondCalendar);
-        Calendar[] sortedDates = orderDates(firstCalendar, secondCalendar);
-        Calendar smallerDate = sortedDates[0];
-        Calendar biggerDate = sortedDates[1];
+        Calendar smallerDate = (firstCalendar.after(secondCalendar)) ? secondCalendar : firstCalendar;
+        Calendar biggerDate = (firstCalendar.after(secondCalendar)) ? firstCalendar : secondCalendar;
         biggerDate.add(Calendar.MONTH, -1);
         return !smallerDate.before(biggerDate);
     }
@@ -90,22 +89,4 @@ public class CalendarUtils {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
     }
 
-    /**
-     * Orders two dates in their chronological order
-     *
-     * @param firstDate  one of dates
-     * @param secondDate one of dates
-     * @return sorted array of 2 dates
-     */
-    private static Calendar[] orderDates(Calendar firstDate, Calendar secondDate) {
-        Calendar[] sortedDates = new Calendar[2];
-        if (firstDate.compareTo(secondDate) > 0) {
-            sortedDates[0] = secondDate;
-            sortedDates[1] = firstDate;
-        } else {
-            sortedDates[0] = firstDate;
-            sortedDates[1] = secondDate;
-        }
-        return sortedDates;
-    }
 }
