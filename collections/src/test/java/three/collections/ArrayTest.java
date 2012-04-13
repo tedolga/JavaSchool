@@ -19,7 +19,6 @@ public class ArrayTest {
     public void testGetSize() throws Exception {
         testArray = new Array(0);
         Assert.assertEquals(0, testArray.getSize());
-        System.out.println(Integer.MAX_VALUE);
         testArray = new Array(1000);
         Assert.assertEquals(1000, testArray.getSize());
         testArray = null;
