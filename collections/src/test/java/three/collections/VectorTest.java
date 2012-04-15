@@ -36,7 +36,7 @@ public class VectorTest {
 
     @Test
     public void testRemoveAt() throws Exception {
-        testVector = new Vector(4);
+        testVector = new Vector(0);
         testVector.addElement("first");
         testVector.addElement("second");
         testVector.addElement("third");

@@ -128,7 +128,7 @@ public class Vector {
      */
     private void provideCapacity(int requiredCapacity) {
         if (requiredCapacity > capacity) {
-            capacity = capacity * 2;
+            capacity = (capacity != 0) ? capacity * 2 : 1;
             elements = Arrays.copyOf(elements, capacity);
         }
     }

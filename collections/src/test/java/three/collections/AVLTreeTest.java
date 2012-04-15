@@ -18,6 +18,7 @@ public class AVLTreeTest {
         avlTree.put(8);
         avlTree.put(9);
         Assert.assertTrue(avlTree.getBalance() == 0);
+        // Assert.assertEquals(6, avlTree.getSize());
         Assert.assertEquals((Object) 7, avlTree.getRootValue());
 
         avlTree = new AVLTree(null, null, null);
@@ -28,6 +29,7 @@ public class AVLTreeTest {
         avlTree.put(10);
         avlTree.put(6);
         Assert.assertTrue(avlTree.getBalance() == 0);
+        // Assert.assertEquals(6, avlTree.getSize());
         Assert.assertEquals((Object) 7, avlTree.getRootValue());
 
         avlTree = new AVLTree(null, null, null);
@@ -35,10 +37,14 @@ public class AVLTreeTest {
         avlTree.put(5);
         avlTree.put(8);
         avlTree.put(6);
-        avlTree.put(4);
+        avlTree.put(2);
+        avlTree.put(1);
         avlTree.put(3);
         Assert.assertTrue(avlTree.getBalance() == 0);
+        //Assert.assertEquals(6, avlTree.getSize());
         Assert.assertEquals((Object) 5, avlTree.getRootValue());
+        Vector vector = avlTree.toVector();
+        System.out.println();
 
         avlTree = new AVLTree(null, null, null);
         avlTree.put(7);
@@ -58,6 +64,7 @@ public class AVLTreeTest {
         avlTree.put(5);
         avlTree.put(5);
         Assert.assertTrue(avlTree.getBalance() == 1);
+        // Assert.assertEquals(5, avlTree.getSize());
         Assert.assertEquals((Object) 8, avlTree.getRootValue());
     }
 }

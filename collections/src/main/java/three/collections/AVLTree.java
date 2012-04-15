@@ -8,6 +8,8 @@ public class AVLTree {
     private AVLTree leftTree;
     private AVLTree rightTree;
     private Integer rootValue;
+    private int size;
+    boolean isMarked;
 
     public AVLTree(AVLTree leftTree, AVLTree rightTree, Integer rootValue) {
         this.leftTree = leftTree;
@@ -19,21 +21,25 @@ public class AVLTree {
         if (rootValue == null) {
             rootValue = element;
         } else if (element < rootValue) {
-            if (leftTree != null) {
-                leftTree.put(element);
-            } else {
-                leftTree = new AVLTree(null, null, element);
+            if (leftTree == null) {
+                leftTree = new AVLTree(null, null, null);
             }
+            leftTree.put(element);
         } else if (element > rootValue) {
-            if (rightTree != null) {
-                rightTree.put(element);
-            } else {
-                rightTree = new AVLTree(null, null, element);
+            if (rightTree == null) {
+                rightTree = new AVLTree(null, null, null);
             }
+            rightTree.put(element);
         }
         if (getBalance() > 1) {
             balance();
         }
+    }
+
+    public Vector toVector() {
+        Vector vector = new Vector(0);
+        writeElement(vector, leftTree, rightTree, rootValue);
+        return vector;
     }
 
 
@@ -116,4 +122,18 @@ public class AVLTree {
         }
     }
 
+    private void writeElement(Vector vector, AVLTree leftTree, AVLTree rightTree, Integer rootValue) {
+        while (leftTree != null && !leftTree.isMarked) {
+            writeElement(vector, leftTree.getLeftTree(), leftTree.getRightTree(), leftTree.getRootValue());
+            leftTree.isMarked = true;
+        }
+        vector.addElement(rootValue);
+        if (rightTree != null) {
+            writeElement(vector, rightTree.getLeftTree(), rightTree.getRightTree(), rightTree.getRootValue());
+        }
+    }
+
+    public int getSize() {
+        return size;
+    }
 }
