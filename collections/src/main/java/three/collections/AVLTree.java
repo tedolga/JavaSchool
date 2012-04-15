@@ -14,7 +14,7 @@ public class AVLTree {
     private AVLTree leftTree;
 
     /**
-     * Right subtree ofmain tree
+     * Right subtree of main tree
      */
     private AVLTree rightTree;
 
@@ -28,11 +28,6 @@ public class AVLTree {
      */
     private int size;
 
-    /**
-     * Flag which defines if that tree was passed during the traversal
-     */
-    boolean isMarked;
-
     public AVLTree(AVLTree leftTree, AVLTree rightTree, Integer rootValue) {
         this.leftTree = leftTree;
         this.rightTree = rightTree;
@@ -44,25 +39,42 @@ public class AVLTree {
      * If the depth of one of the subtrees differs from another more than on 2 elements, tree will be restructured and
      * balanced.
      *
-     * @param element value of new element.
+     * @param element value of the new element.
      */
     public void put(Integer element) {
+        if (put0(element)) {
+            size++;
+        }
+    }
+
+    /**
+     * Adds new element with given value to the tree if there is no other element with the same value in that tree.
+     * If the depth of one of the subtrees differs from another more than on 2 elements, tree will be restructured and
+     * balanced.
+     *
+     * @param element value of the new element.
+     * @return true, if element was added, false - otherwise.
+     */
+    private boolean put0(Integer element) {
+        boolean isAdded = false;
         if (rootValue == null) {
             rootValue = element;
+            isAdded = true;
         } else if (element < rootValue) {
             if (leftTree == null) {
                 leftTree = new AVLTree(null, null, null);
             }
-            leftTree.put(element);
+            isAdded = leftTree.put0(element);
         } else if (element > rootValue) {
             if (rightTree == null) {
                 rightTree = new AVLTree(null, null, null);
             }
-            rightTree.put(element);
+            isAdded = rightTree.put0(element);
         }
         if (getBalance() > 1) {
             balance();
         }
+        return isAdded;
     }
 
     /**
@@ -73,11 +85,10 @@ public class AVLTree {
      *         search order
      */
     public Vector toVector() {
-        Vector vector = new Vector(0);
+        Vector vector = new Vector(size);
         writeElement(vector, leftTree, rightTree, rootValue);
         return vector;
     }
-
 
     public AVLTree getLeftTree() {
         return leftTree;
@@ -109,7 +120,7 @@ public class AVLTree {
     }
 
     /**
-     * Returns depth of given tree
+     * Returns depth of given tree.
      *
      * @param tree tree
      * @return depth of given tree, if given tree not equals to null, or zero - otherwise.
@@ -119,16 +130,12 @@ public class AVLTree {
     }
 
     /**
-     * Returns depth of the tree
+     * Returns depth of the tree.
      *
      * @return max depth of the tree subtrees.
      */
     private int getDepth() {
-        if (rootValue != null) {
-            return 1 + Math.max(getTreeDepth(leftTree), getTreeDepth(rightTree));
-        } else {
-            return 0;
-        }
+        return rootValue != null ? 1 + Math.max(getTreeDepth(leftTree), getTreeDepth(rightTree)) : 0;
     }
 
     /**
@@ -155,12 +162,11 @@ public class AVLTree {
             setRightTree(rightSubTree);
         } else {
             AVLTree newLeftTree = new AVLTree(leftTree, leftSubTree.getLeftTree(), rootValue);
-            AVLTree newRightTree = new AVLTree(leftSubTree.getRightTree(), rightSubTree, rightTree.getRootValue());
-            rootValue = leftSubTree.getRootValue();
+            AVLTree newRightTree = new AVLTree(leftSubTree.getRightTree(), rightSubTree, rightTree.rootValue);
+            rootValue = leftSubTree.rootValue;
             setLeftTree(newLeftTree);
             setRightTree(newRightTree);
         }
-
     }
 
     /**
@@ -192,9 +198,8 @@ public class AVLTree {
      * @param rootValue root element value
      */
     private void writeElement(Vector vector, AVLTree leftTree, AVLTree rightTree, Integer rootValue) {
-        while (leftTree != null && !leftTree.isMarked) {
+        if (leftTree != null) {
             writeElement(vector, leftTree.getLeftTree(), leftTree.getRightTree(), leftTree.getRootValue());
-            leftTree.isMarked = true;
         }
         vector.addElement(rootValue);
         if (rightTree != null) {
