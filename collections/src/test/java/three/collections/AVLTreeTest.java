@@ -18,7 +18,7 @@ public class AVLTreeTest {
         avlTree.put(8);
         avlTree.put(9);
         Assert.assertTrue(avlTree.getBalance() == 0);
-        // Assert.assertEquals(6, avlTree.getSize());
+        Assert.assertEquals(6, avlTree.getSize());
         Assert.assertEquals((Object) 7, avlTree.getRootValue());
 
         avlTree = new AVLTree(null, null, null);
@@ -44,7 +44,7 @@ public class AVLTreeTest {
         //Assert.assertEquals(6, avlTree.getSize());
         Assert.assertEquals((Object) 5, avlTree.getRootValue());
         Vector vector = avlTree.toVector();
-        System.out.println();
+        Assert.assertEquals(7, vector.getCurrentSize());
 
         avlTree = new AVLTree(null, null, null);
         avlTree.put(7);
@@ -66,5 +66,35 @@ public class AVLTreeTest {
         Assert.assertTrue(avlTree.getBalance() == 1);
         // Assert.assertEquals(5, avlTree.getSize());
         Assert.assertEquals((Object) 8, avlTree.getRootValue());
+    }
+
+    @Test
+    public void testToVector() throws Exception {
+        AVLTree avlTree = new AVLTree(null, null, null);
+        avlTree.put(1);
+        avlTree.put(2);
+        avlTree.put(3);
+        avlTree.put(4);
+        avlTree.put(5);
+        avlTree.put(6);
+        Vector vector = avlTree.toVector();
+        Assert.assertEquals(6, vector.getCurrentSize());
+        for (int i = 1; i <= vector.getCurrentSize(); i++) {
+            Assert.assertEquals(i, vector.getElement(i - 1));
+        }
+
+        avlTree = new AVLTree(null, null, null);
+        avlTree.put(1);
+        avlTree.put(2);
+        vector = avlTree.toVector();
+        Assert.assertEquals(2, vector.getCurrentSize());
+        for (int i = 1; i <= vector.getCurrentSize(); i++) {
+            Assert.assertEquals(i, vector.getElement(i - 1));
+        }
+
+        avlTree = new AVLTree(null, null, null);
+        vector = avlTree.toVector();
+        Assert.assertEquals(1, vector.getCurrentSize());
+        Assert.assertNull(vector.getElement(0));
     }
 }

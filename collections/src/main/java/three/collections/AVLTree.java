@@ -1,14 +1,36 @@
 package three.collections;
 
 /**
+ * Self-balancing Binary search Tree which uses “Adelson-Velsky and Landis” algorithm.
+ *
  * @author Tedikova O.
  * @version 1.0
  */
 public class AVLTree {
+
+    /**
+     * Left subtree of main tree
+     */
     private AVLTree leftTree;
+
+    /**
+     * Right subtree ofmain tree
+     */
     private AVLTree rightTree;
+
+    /**
+     * Value of the tree root
+     */
     private Integer rootValue;
+
+    /**
+     * Size of the tree
+     */
     private int size;
+
+    /**
+     * Flag which defines if that tree was passed during the traversal
+     */
     boolean isMarked;
 
     public AVLTree(AVLTree leftTree, AVLTree rightTree, Integer rootValue) {
@@ -17,6 +39,13 @@ public class AVLTree {
         this.rootValue = rootValue;
     }
 
+    /**
+     * Adds new element with given value to the tree if there is no other element with the same value in that tree.
+     * If the depth of one of the subtrees differs from another more than on 2 elements, tree will be restructured and
+     * balanced.
+     *
+     * @param element value of new element.
+     */
     public void put(Integer element) {
         if (rootValue == null) {
             rootValue = element;
@@ -36,6 +65,13 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Returns {@link three.collections.Vector} instance, containing all the elements of the tree according to their
+     * search order (INFIX_TRAVERSE).
+     *
+     * @return {@link three.collections.Vector} instance, containing all the elements of the tree according to their
+     *         search order
+     */
     public Vector toVector() {
         Vector vector = new Vector(0);
         writeElement(vector, leftTree, rightTree, rootValue);
@@ -63,14 +99,30 @@ public class AVLTree {
         return rootValue;
     }
 
+    /**
+     * Returns the difference between left subtree depth and right subtree depth.
+     *
+     * @return difference between left subtree depth and right subtree depth.
+     */
     public int getBalance() {
         return Math.abs(getTreeDepth(rightTree) - getTreeDepth(leftTree));
     }
 
+    /**
+     * Returns depth of given tree
+     *
+     * @param tree tree
+     * @return depth of given tree, if given tree not equals to null, or zero - otherwise.
+     */
     private static int getTreeDepth(AVLTree tree) {
         return (tree != null) ? tree.getDepth() : 0;
     }
 
+    /**
+     * Returns depth of the tree
+     *
+     * @return max depth of the tree subtrees.
+     */
     private int getDepth() {
         if (rootValue != null) {
             return 1 + Math.max(getTreeDepth(leftTree), getTreeDepth(rightTree));
@@ -79,6 +131,9 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Balances tree with usage of different rotations.
+     */
     private void balance() {
         if (getTreeDepth(rightTree) > getTreeDepth(leftTree)) {
             leftRotation();
@@ -87,6 +142,9 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Implements left rotation.
+     */
     private void leftRotation() {
         AVLTree rightSubTree = rightTree.getRightTree();
         AVLTree leftSubTree = rightTree.getLeftTree();
@@ -105,6 +163,9 @@ public class AVLTree {
 
     }
 
+    /**
+     * Implements right rotation
+     */
     private void rightRotation() {
         AVLTree rightSubTree = leftTree.getRightTree();
         AVLTree leftSubTree = leftTree.getLeftTree();
@@ -122,6 +183,14 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Recursively writes to the vector left subtree elements, root value and then right subtree elements.
+     *
+     * @param vector    in which elements will be written.
+     * @param leftTree  left subtree
+     * @param rightTree right subtree
+     * @param rootValue root element value
+     */
     private void writeElement(Vector vector, AVLTree leftTree, AVLTree rightTree, Integer rootValue) {
         while (leftTree != null && !leftTree.isMarked) {
             writeElement(vector, leftTree.getLeftTree(), leftTree.getRightTree(), leftTree.getRootValue());
@@ -133,6 +202,11 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Returns size of the tree
+     *
+     * @return size of the tree
+     */
     public int getSize() {
         return size;
     }
