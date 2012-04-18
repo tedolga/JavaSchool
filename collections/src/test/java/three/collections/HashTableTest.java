@@ -20,11 +20,23 @@ public class HashTableTest {
     }
 
     @Test
+    public void testRehash() throws Exception {
+        HashTable table = new HashTable(4);
+        table.put(1, "1");
+        table.put(5, "2");
+        table.put(9, "3");
+        table.put(13, "4");
+        table.put(17, "5");
+        System.out.println();
+    }
+
+    @Test
     public void testCalculateIndex() throws Exception {
         HashTable table = new HashTable(1);
         Assert.assertEquals(0, table.calculateIndex(28));
         table = new HashTable(10);
         Assert.assertEquals(1, table.calculateIndex(11));
+        Assert.assertEquals(0, table.calculateIndex(10));
         Assert.assertEquals(0, table.calculateIndex(0));
         Assert.assertEquals(1, table.calculateIndex(-1));
     }

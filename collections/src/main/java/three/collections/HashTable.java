@@ -21,8 +21,12 @@ public class HashTable {
     public Object put(Object key, Object value) {
         checkNotNull("Key", key);
         checkNotNull("Value", value);
+        return putToBuckets(buckets, key, value);
+    }
+
+    private Object putToBuckets(LinkedList[] buckets, Object key, Object value) {
         int elementIndex = calculateIndex(key.hashCode());
-        Object returnValue = putToBucket(elementIndex, key, value);
+        Object returnValue = putToBucketList(buckets, elementIndex, key, value);
         if (buckets[elementIndex].size() > OVERLOAD_LIMIT * capacity) {
             rehash();
         }
@@ -32,7 +36,7 @@ public class HashTable {
 
     public int calculateIndex(int hashCode) {
         int index = Math.abs(hashCode);
-        while (index > mod) {
+        while (index >= mod) {
             index = index % mod;
         }
         return index;
@@ -44,7 +48,7 @@ public class HashTable {
         }
     }
 
-    private Object putToBucket(int index, Object key, Object value) {
+    private Object putToBucketList(LinkedList[] buckets, int index, Object key, Object value) {
         LinkedList values = buckets[index];
         if (values != null) {
             for (Object next : values) {
@@ -65,7 +69,18 @@ public class HashTable {
     }
 
     private void rehash() {
-
+        capacity = capacity * 2 + 1;
+        mod = capacity;
+        LinkedList[] newBuckets = new LinkedList[capacity];
+        for (LinkedList bucket : buckets) {
+            if (bucket != null) {
+                for (Object element : bucket) {
+                    TableElement tableElement = (TableElement) element;
+                    putToBuckets(newBuckets, tableElement.key, tableElement.value);
+                }
+            }
+        }
+        buckets = newBuckets;
     }
 
     private static class TableElement {
