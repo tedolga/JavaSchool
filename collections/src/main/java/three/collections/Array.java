@@ -9,6 +9,9 @@ import java.util.Random;
  * @version 1.0
  */
 public class Array {
+
+    private static final Random random = new Random();
+
     private Object[] array;
     private int size;
 
@@ -62,7 +65,6 @@ public class Array {
     }
 
     public static <T> T random(Array array) {
-        Random random = new Random();
         return (T) array.getElement(random.nextInt(array.size));
     }
 }
