@@ -11,9 +11,10 @@ public class HashTable {
     private LinkedList[] buckets;
     private int capacity;
     private int mod;
+    private int size;
 
     public HashTable(int initialCapacity) {
-        this.capacity = initialCapacity;
+        this.capacity = (initialCapacity != 0) ? initialCapacity : 1;
         buckets = new LinkedList[capacity];
         mod = capacity;
     }
@@ -21,7 +22,46 @@ public class HashTable {
     public Object put(Object key, Object value) {
         checkNotNull("Key", key);
         checkNotNull("Value", value);
-        return putToBuckets(buckets, key, value);
+        Object returnValue = putToBuckets(buckets, key, value);
+        if (returnValue == null) {
+            size++;
+        }
+        return returnValue;
+    }
+
+    public Object get(Object key) {
+        checkNotNull("Key", key);
+        int elementIndex = calculateIndex(key.hashCode());
+        LinkedList values = buckets[elementIndex];
+        if (values == null) {
+            return null;
+        }
+        for (Object next : values) {
+            TableElement element = (TableElement) next;
+            if (element.key.equals(key)) {
+                return element.value;
+            }
+        }
+        return null;
+    }
+
+    public Object remove(Object key) {
+        checkNotNull("Key", key);
+        int elementIndex = calculateIndex(key.hashCode());
+        LinkedList values = buckets[elementIndex];
+        if (values == null) {
+            return null;
+        }
+        for (Object next : values) {
+            TableElement element = (TableElement) next;
+            if (element.key.equals(key)) {
+                Object returnValue = element.value;
+                values.remove(element);
+                size--;
+                return returnValue;
+            }
+        }
+        return null;
     }
 
     private Object putToBuckets(LinkedList[] buckets, Object key, Object value) {
@@ -33,8 +73,7 @@ public class HashTable {
         return returnValue;
     }
 
-
-    public int calculateIndex(int hashCode) {
+    private int calculateIndex(int hashCode) {
         int index = Math.abs(hashCode);
         while (index >= mod) {
             index = index % mod;
@@ -50,22 +89,21 @@ public class HashTable {
 
     private Object putToBucketList(LinkedList[] buckets, int index, Object key, Object value) {
         LinkedList values = buckets[index];
-        if (values != null) {
-            for (Object next : values) {
-                TableElement element = (TableElement) next;
-                if (element.key.equals(key)) {
-                    Object oldValue = element.value;
-                    element.value = value;
-                    return oldValue;
-                }
-            }
-            values.add(new TableElement(key, value));
-            return null;
-        } else {
+        if (values == null) {
             buckets[index] = new LinkedList<TableElement>();
             buckets[index].add(new TableElement(key, value));
             return null;
         }
+        for (Object next : values) {
+            TableElement element = (TableElement) next;
+            if (element.key.equals(key)) {
+                Object oldValue = element.value;
+                element.value = value;
+                return oldValue;
+            }
+        }
+        values.add(new TableElement(key, value));
+        return null;
     }
 
     private void rehash() {
@@ -83,28 +121,16 @@ public class HashTable {
         buckets = newBuckets;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     private static class TableElement {
         private Object key;
         private Object value;
 
         public TableElement(Object key, Object value) {
             this.key = key;
-            this.value = value;
-        }
-
-        public Object getKey() {
-            return key;
-        }
-
-        public void setKey(Object key) {
-            this.key = key;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public void setValue(Object value) {
             this.value = value;
         }
     }
