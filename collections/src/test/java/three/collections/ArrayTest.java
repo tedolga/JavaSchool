@@ -27,7 +27,7 @@ public class ArrayTest {
     @Test
     public void testGetSetElement() throws Exception {
         testArray = new Array(5);
-        Assert.assertFalse(testArray.setElement(-1, "-1"));
+        Assert.assertFalse(testArray.setElement(-1, "-1.0"));
         Assert.assertFalse(testArray.setElement(5, "5"));
         Assert.assertTrue(testArray.setElement(0, "0"));
         Assert.assertTrue(testArray.setElement(4, "4"));
@@ -38,4 +38,13 @@ public class ArrayTest {
         Assert.assertEquals("4", testArray.getElement(4));
     }
 
+    @Test
+    public void testRandom() throws Exception {
+        Array array = new Array(3);
+        array.setElement(0, 0);
+        array.setElement(1, 1);
+        array.setElement(2, 2);
+        Integer value = Array.random(array);
+        Assert.assertTrue(0 <= value && value <= 2);
+    }
 }

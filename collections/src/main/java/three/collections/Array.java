@@ -1,5 +1,7 @@
 package three.collections;
 
+import java.util.Random;
+
 /**
  * Emulates the behavior of an array o values
  *
@@ -57,5 +59,10 @@ public class Array {
         } else {
             return false;
         }
+    }
+
+    public static <T> T random(Array array) {
+        Random random = new Random();
+        return (T) array.getElement(random.nextInt(array.size));
     }
 }
