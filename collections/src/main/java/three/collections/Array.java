@@ -8,7 +8,7 @@ import java.util.Random;
  * @author O. Tedikova
  * @version 1.0
  */
-public class Array {
+public class Array<T> {
 
     private static final Random random = new Random();
 
@@ -44,8 +44,8 @@ public class Array {
      * @param index of required element
      * @return element of array with specified index, if index is in bounds of array, or {@literal null} in other case.
      */
-    public Object getElement(int index) {
-        return (0 <= index && index < size) ? array[index] : null;
+    public T getElement(int index) {
+        return (0 <= index && index < size) ? (T) array[index] : null;
     }
 
     /**
@@ -55,7 +55,7 @@ public class Array {
      * @param element value
      * @return true, if specified index is in array bounds, or false in other case
      */
-    public boolean setElement(int index, Object element) {
+    public boolean setElement(int index, T element) {
         if (0 <= index && index < size) {
             array[index] = element;
             return true;

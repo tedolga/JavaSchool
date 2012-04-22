@@ -6,17 +6,17 @@ package three.collections;
  * @author Tedikova O.
  * @version 1.0
  */
-public class LinkedList {
+public class LinkedList<T> {
 
     /**
      * Reference to the first element of the list
      */
-    private ListElement head = null;
+    private ListElement<T> head = null;
 
     /**
      * Reference to the last element of the list
      */
-    private ListElement tail = null;
+    private ListElement<T> tail = null;
 
     /**
      * Count of elements in the list
@@ -28,12 +28,12 @@ public class LinkedList {
      *
      * @param element element to add
      */
-    public void addLast(Object element) {
+    public void addLast(T element) {
         if (tail == null) {
-            head = new ListElement(element, null, null);
+            head = new ListElement<T>(element, null, null);
             tail = head;
         } else {
-            ListElement newElement = new ListElement(element, tail, null);
+            ListElement<T> newElement = new ListElement<T>(element, tail, null);
             tail.setNext(newElement);
             tail = newElement;
         }
@@ -45,12 +45,12 @@ public class LinkedList {
      *
      * @param element element to add
      */
-    public void addFirst(Object element) {
+    public void addFirst(T element) {
         if (head == null) {
-            head = new ListElement(element, null, null);
+            head = new ListElement<T>(element, null, null);
             tail = head;
         } else {
-            ListElement newElement = new ListElement(element, null, head);
+            ListElement<T> newElement = new ListElement<T>(element, null, head);
             head.setPrevious(newElement);
             head = newElement;
         }
@@ -62,7 +62,7 @@ public class LinkedList {
      *
      * @return value of the first element of the list, if the list is not empty, returns null - otherwise.
      */
-    public Object getFirst() {
+    public T getFirst() {
         return (head != null) ? head.getValue() : null;
     }
 
@@ -71,7 +71,7 @@ public class LinkedList {
      *
      * @return value of the last element of the list, if the list is not empty, returns null - otherwise.
      */
-    public Object getLast() {
+    public T getLast() {
         return (tail != null) ? tail.getValue() : null;
     }
 
@@ -84,9 +84,9 @@ public class LinkedList {
      */
     public boolean removeAt(int index) {
         if (index >= 0 && index < size) {
-            ListElement currentElement = getListElement(index);
-            ListElement previousElement = currentElement.getPrevious();
-            ListElement nextElement = currentElement.getNext();
+            ListElement<T> currentElement = getListElement(index);
+            ListElement<T> previousElement = currentElement.getPrevious();
+            ListElement<T> nextElement = currentElement.getNext();
             if (previousElement == null) {
                 nextElement.setPrevious(previousElement);
                 head = nextElement;
@@ -111,16 +111,16 @@ public class LinkedList {
      * @param element value of the new element
      * @return true if position >0 and <= size of the list, otherwise returns false
      */
-    public boolean insertAt(int index, Object element) {
+    public boolean insertAt(int index, T element) {
         if (index >= 0 && index <= size) {
-            ListElement currentElement = getListElement(index);
-            ListElement previousElement = (currentElement != null) ? currentElement.getPrevious() : null;
+            ListElement<T> currentElement = getListElement(index);
+            ListElement<T> previousElement = (currentElement != null) ? currentElement.getPrevious() : null;
             if (index == size) {
                 addLast(element);
             } else if (previousElement == null) {
                 addFirst(element);
             } else {
-                ListElement newElement = new ListElement(element, previousElement, currentElement);
+                ListElement<T> newElement = new ListElement<T>(element, previousElement, currentElement);
                 previousElement.setNext(newElement);
                 currentElement.setPrevious(newElement);
                 size++;
@@ -135,10 +135,10 @@ public class LinkedList {
      * Sets given value to the element at the specified position.
      *
      * @param index   position
-     * @param element value to be set
+     * @param element value to be utils
      * @return true, if element with specified index exists in the list, false-otherwise
      */
-    public boolean setElement(int index, Object element) {
+    public boolean setElement(int index, T element) {
         if (index >= 0 && index < size) {
             getListElement(index).setValue(element);
             return true;
@@ -171,8 +171,8 @@ public class LinkedList {
      * @return value of element at the specified position, if element at the specified position exists in list, null
      *         - otherwise
      */
-    public Object getElement(int index) {
-        ListElement element = getListElement(index);
+    public T getElement(int index) {
+        ListElement<T> element = getListElement(index);
         return (element != null) ? element.getValue() : null;
     }
 
@@ -183,10 +183,10 @@ public class LinkedList {
      * @return element at the specified position, if element at the specified position exists in list, null
      *         - otherwise
      */
-    private ListElement getListElement(int index) {
+    private ListElement<T> getListElement(int index) {
         if (index >= 0 && index < size) {
             int elementIndex = 0;
-            ListElement currentElement = head;
+            ListElement<T> currentElement = head;
             while (elementIndex != index) {
                 currentElement = currentElement.getNext();
                 elementIndex++;
@@ -200,51 +200,51 @@ public class LinkedList {
     /**
      * Inner class which performs element of the list.
      */
-    private static class ListElement {
+    private static class ListElement<T> {
 
         /**
          * Value of the element.
          */
-        private Object value;
+        private T value;
 
         /**
          * Reference to the previous element of the list.
          */
-        private ListElement previous;
+        private ListElement<T> previous;
 
         /**
          * Reference to the next element of the list.
          */
-        private ListElement next;
+        private ListElement<T> next;
 
-        private ListElement(Object value, ListElement previous, ListElement next) {
+        private ListElement(T value, ListElement<T> previous, ListElement<T> next) {
 
             this.value = value;
             this.previous = previous;
             this.next = next;
         }
 
-        private Object getValue() {
+        private T getValue() {
             return value;
         }
 
-        public void setValue(Object value) {
+        public void setValue(T value) {
             this.value = value;
         }
 
-        private ListElement getPrevious() {
+        private ListElement<T> getPrevious() {
             return previous;
         }
 
-        private void setPrevious(ListElement previous) {
+        private void setPrevious(ListElement<T> previous) {
             this.previous = previous;
         }
 
-        private ListElement getNext() {
+        private ListElement<T> getNext() {
             return next;
         }
 
-        private void setNext(ListElement next) {
+        private void setNext(ListElement<T> next) {
             this.next = next;
         }
     }

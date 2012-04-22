@@ -108,7 +108,7 @@ public class Vector {
      * Sets a given value for the element in specified position
      *
      * @param index   position of the element
-     * @param element value which will be set to the element
+     * @param element value which will be utils to the element
      * @return true if index is in vector bounds, or false -in other case
      */
     public boolean setElement(int index, Object element) {

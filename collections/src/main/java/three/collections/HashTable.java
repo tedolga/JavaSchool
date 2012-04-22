@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * @author O. Tedikova
  * @version 1.0
  */
-public class HashTable {
+public class HashTable<K, V> {
     private static final float OVERLOAD_LIMIT = 0.75f;
     private LinkedList[] buckets;
     private int capacity;

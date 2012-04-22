@@ -8,25 +8,23 @@ import org.junit.Test;
  * @version 1.0
  */
 public class ArrayTest {
-    private Array testArray;
 
     @Test(expected = IllegalArgumentException.class)
     public void testWrongCreation() throws Exception {
-        testArray = new Array(-1);
+        Array<Integer> testArray = new Array<Integer>(-1);
     }
 
     @Test
     public void testGetSize() throws Exception {
-        testArray = new Array(0);
+        Array testArray = new Array(0);
         Assert.assertEquals(0, testArray.getSize());
         testArray = new Array(1000);
         Assert.assertEquals(1000, testArray.getSize());
-        testArray = null;
     }
 
     @Test
     public void testGetSetElement() throws Exception {
-        testArray = new Array(5);
+        Array<String> testArray = new Array<String>(5);
         Assert.assertFalse(testArray.setElement(-1, "-1.0"));
         Assert.assertFalse(testArray.setElement(5, "5"));
         Assert.assertTrue(testArray.setElement(0, "0"));
@@ -40,7 +38,7 @@ public class ArrayTest {
 
     @Test
     public void testRandom() throws Exception {
-        Array array = new Array(3);
+        Array<Integer> array = new Array<Integer>(3);
         array.setElement(0, 0);
         array.setElement(1, 1);
         array.setElement(2, 2);

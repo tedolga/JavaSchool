@@ -10,7 +10,7 @@ import org.junit.Test;
 public class LinkedListTest {
     @Test
     public void testAddLast() throws Exception {
-        LinkedList testList = new LinkedList();
+        LinkedList<String> testList = new LinkedList<String>();
         Assert.assertNull(testList.getFirst());
         Assert.assertNull(testList.getLast());
         testList.addLast("1");
@@ -25,7 +25,7 @@ public class LinkedListTest {
 
     @Test
     public void testAddFirst() throws Exception {
-        LinkedList testList = new LinkedList();
+        LinkedList<String> testList = new LinkedList<String>();
         testList.addFirst("1");
         Assert.assertEquals("1", testList.getFirst());
         Assert.assertEquals("1", testList.getLast());
@@ -37,7 +37,7 @@ public class LinkedListTest {
 
     @Test
     public void testRemoveAt() throws Exception {
-        LinkedList testList = new LinkedList();
+        LinkedList<String> testList = new LinkedList<String>();
         Assert.assertFalse(testList.removeAt(0));
         testList.addLast("1");
         testList.addLast("2");
@@ -59,7 +59,7 @@ public class LinkedListTest {
 
     @Test
     public void testInsertAt() throws Exception {
-        LinkedList testList = new LinkedList();
+        LinkedList<String> testList = new LinkedList<String>();
         Assert.assertTrue(testList.insertAt(0, "0"));
         Assert.assertEquals("0", testList.getFirst());
         Assert.assertEquals("0", testList.getLast());
@@ -82,7 +82,7 @@ public class LinkedListTest {
 
     @Test
     public void testSetGetElement() throws Exception {
-        LinkedList testList = new LinkedList();
+        LinkedList<String> testList = new LinkedList<String>();
         Assert.assertFalse(testList.setElement(-1, "-1"));
         Assert.assertFalse(testList.setElement(0, "0"));
         testList.addFirst("zero");
@@ -96,7 +96,7 @@ public class LinkedListTest {
     @Test
     public void testToVector() throws Exception {
         Vector vector;
-        LinkedList testList = new LinkedList();
+        LinkedList<String> testList = new LinkedList<String>();
         vector = testList.toVector();
         Assert.assertEquals(0, vector.getCurrentSize());
         testList.addLast("1");
