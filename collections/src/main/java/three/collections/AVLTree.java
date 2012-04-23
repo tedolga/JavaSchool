@@ -56,16 +56,17 @@
 //     * @return true, if element was added, false - otherwise.
 //     */
 //    private boolean put0(T element) {
+//        Comparable<T> elementValue = (Comparable<T>) element;
 //        boolean isAdded = false;
 //        if (rootValue == null) {
 //            rootValue = element;
 //            isAdded = true;
-//        } else if (element.compareTo(rootValue) < 0) {
+//        } else if (elementValue.compareTo(rootValue) < 0) {
 //            if (leftTree == null) {
 //                leftTree = new AVLTree(null, null, null);
 //            }
 //            isAdded = leftTree.put0(element);
-//        } else if (element.compareTo(rootValue) > 0) {
+//        } else if (elementValue.compareTo(rootValue) > 0) {
 //            if (rightTree == null) {
 //                rightTree = new AVLTree(null, null, null);
 //            }

@@ -6,17 +6,17 @@ package three.collections;
  * @author O. Tedikova
  * @version 1.0
  */
-public class Queue {
+public class Queue<T> {
 
     /**
      * Reference to the start of the queue
      */
-    private QueueElement head;
+    private QueueElement<T> head;
 
     /**
      * Reference to the and of the queue
      */
-    private QueueElement tail;
+    private QueueElement<T> tail;
 
     /**
      * Size of the queue
@@ -28,7 +28,7 @@ public class Queue {
      *
      * @param element value of the new element
      */
-    public void put(Object element) {
+    public void put(T element) {
         if (tail != null) {
             QueueElement newElement = new QueueElement(element, null);
             tail.setNext(newElement);
@@ -45,9 +45,9 @@ public class Queue {
      *
      * @return value of the first element of the queue, if queue is not empty, null - otherwise.
      */
-    public Object get() {
+    public T get() {
         if (head != null) {
-            Object returnValue = head.getValue();
+            T returnValue = head.getValue();
             head = head.getNext();
             size--;
             return returnValue;
@@ -61,7 +61,7 @@ public class Queue {
      *
      * @return value of the first element of the queue, if queue is not empty, null - otherwise.
      */
-    public Object peek() {
+    public T peek() {
         return (head != null) ? head.getValue() : null;
     }
 
@@ -77,24 +77,24 @@ public class Queue {
     /**
      * Represents element of the queue.
      */
-    private static class QueueElement {
+    private static class QueueElement<T> {
 
         /**
          * Value of the element
          */
-        private Object value;
+        private T value;
 
         /**
          * Reference to the next element of the list.
          */
         private QueueElement next;
 
-        public QueueElement(Object value, QueueElement next) {
+        public QueueElement(T value, QueueElement next) {
             this.value = value;
             this.next = next;
         }
 
-        public Object getValue() {
+        public T getValue() {
             return value;
         }
 

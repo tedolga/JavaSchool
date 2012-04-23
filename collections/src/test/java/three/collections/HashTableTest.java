@@ -10,13 +10,14 @@ import org.junit.Test;
 public class HashTableTest {
     @Test
     public void testPut() throws Exception {
-        HashTable table = new HashTable(10);
+        HashTable<String, Integer> table = new HashTable(10);
         Assert.assertNull(table.put("1", 1));
         Assert.assertNull(table.put("2", 2));
         Assert.assertNull(table.put("3", 3));
-        Assert.assertEquals(3, table.put("3", "3"));
-        Assert.assertEquals(2, table.put("2", "2"));
-        Assert.assertNull(table.put(51, 3));
+        Assert.assertEquals(3, table.put("3", 6));
+        Assert.assertEquals(2, table.put("2", 8));
+        Assert.assertEquals(8, table.put("2", 8));
+        Assert.assertNull(table.put("51", 3));
         Assert.assertEquals(4, table.getSize());
     }
 

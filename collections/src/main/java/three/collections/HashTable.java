@@ -3,33 +3,75 @@ package three.collections;
 import java.util.LinkedList;
 
 /**
+ * Emulates HashTable
+ *
  * @author O. Tedikova
  * @version 1.0
  */
 public class HashTable<K, V> {
+
+    /**
+     * Limit quotient for rehashing
+     */
     private static final float OVERLOAD_LIMIT = 0.75f;
+
+    /**
+     * Array for element storing according to it's hashCodes
+     */
     private LinkedList[] buckets;
+
+    /**
+     * Number of buckets
+     */
     private int capacity;
+
+    /**
+     * Module which is been used to determine which bucket corresponds to element hashCode
+     */
     private int mod;
+
+    /**
+     * Number of elements in HashTable
+     */
     private int size;
 
+    /**
+     * Creates HashTable with initial capacity
+     *
+     * @param initialCapacity capacity of HashTable
+     */
     public HashTable(int initialCapacity) {
         this.capacity = (initialCapacity != 0) ? initialCapacity : 1;
         buckets = new LinkedList[capacity];
         mod = capacity;
     }
 
-    public Object put(Object key, Object value) {
+    /**
+     * Puts new element with given key and value to the HashTable. If element with specified key already exists,
+     * returns old value of that key and sets it to given value, otherwise-returns null. Restricts adding of null keys
+     * and null values.
+     *
+     * @param key   key for new element
+     * @param value value for new element
+     * @return old value of given key, if element with specified key already exists, otherwise - returns null.
+     */
+    public Object put(K key, V value) {
         checkNotNull("Key", key);
         checkNotNull("Value", value);
-        Object returnValue = putToBuckets(buckets, key, value);
+        V returnValue = putToBuckets(buckets, key, value);
         if (returnValue == null) {
             size++;
         }
         return returnValue;
     }
 
-    public Object get(Object key) {
+    /**
+     * Returns value of the given key, if element with specified key exists in table.
+     *
+     * @param key key to element search.
+     * @return value of the given key, if element with specified key exists in table, null-otherwise
+     */
+    public V get(K key) {
         checkNotNull("Key", key);
         int elementIndex = calculateIndex(key.hashCode());
         LinkedList values = buckets[elementIndex];
@@ -37,7 +79,7 @@ public class HashTable<K, V> {
             return null;
         }
         for (Object next : values) {
-            TableElement element = (TableElement) next;
+            TableElement<K, V> element = (TableElement) next;
             if (element.key.equals(key)) {
                 return element.value;
             }
@@ -45,7 +87,13 @@ public class HashTable<K, V> {
         return null;
     }
 
-    public Object remove(Object key) {
+    /**
+     * Removes element with given key and returns it's value, if element with specified key exists in table.
+     *
+     * @param key key to element search.
+     * @return value of the given key, if element with specified key exists in table, null-otherwise
+     */
+    public V remove(Object key) {
         checkNotNull("Key", key);
         int elementIndex = calculateIndex(key.hashCode());
         LinkedList values = buckets[elementIndex];
@@ -53,9 +101,9 @@ public class HashTable<K, V> {
             return null;
         }
         for (Object next : values) {
-            TableElement element = (TableElement) next;
+            TableElement<K, V> element = (TableElement) next;
             if (element.key.equals(key)) {
-                Object returnValue = element.value;
+                V returnValue = element.value;
                 values.remove(element);
                 size--;
                 return returnValue;
@@ -64,15 +112,30 @@ public class HashTable<K, V> {
         return null;
     }
 
-    private Object putToBuckets(LinkedList[] buckets, Object key, Object value) {
+    /**
+     * Puts given element to the specified array of buckets.
+     *
+     * @param buckets array of buckets
+     * @param key     key for a new element
+     * @param value   value for a new element
+     * @return value of the given key, if element with specified key exists in table, null-otherwise
+     */
+    private V putToBuckets(LinkedList[] buckets, K key, V value) {
         int elementIndex = calculateIndex(key.hashCode());
-        Object returnValue = putToBucketList(buckets, elementIndex, key, value);
+        V returnValue = putToBucketList(buckets, elementIndex, key, value);
         if (buckets[elementIndex].size() > OVERLOAD_LIMIT * capacity) {
             rehash();
         }
         return returnValue;
     }
 
+    /**
+     * Calculates index of the bucket for a given hashCode. Uses {@link three.collections.HashTable#mod} value as
+     * divider and makes division on it until remainder will be less than mod.
+     *
+     * @param hashCode hashcode of the element key
+     * @return index of the bucket
+     */
     private int calculateIndex(int hashCode) {
         int index = Math.abs(hashCode);
         while (index >= mod) {
@@ -81,13 +144,29 @@ public class HashTable<K, V> {
         return index;
     }
 
+    /**
+     * Checks if given element is not null
+     *
+     * @param argName  name of the argument to be used in error message
+     * @param argValue value of the argument
+     * @throws NullPointerException in case when value == null
+     */
     private void checkNotNull(String argName, Object argValue) {
         if (argValue == null) {
             throw new NullPointerException(String.format("%s must not be null.", argName));
         }
     }
 
-    private Object putToBucketList(LinkedList[] buckets, int index, Object key, Object value) {
+    /**
+     * Puts given element to the specified bucket in array of buckets.
+     *
+     * @param buckets array of buckets.
+     * @param index   index of required bucket.
+     * @param key     key of the element.
+     * @param value   value of the element.
+     * @return value of the given key, if element with specified key exists in table, null-otherwise
+     */
+    private V putToBucketList(LinkedList[] buckets, int index, K key, V value) {
         LinkedList values = buckets[index];
         if (values == null) {
             buckets[index] = new LinkedList<TableElement>();
@@ -95,9 +174,9 @@ public class HashTable<K, V> {
             return null;
         }
         for (Object next : values) {
-            TableElement element = (TableElement) next;
+            TableElement<K, V> element = (TableElement) next;
             if (element.key.equals(key)) {
-                Object oldValue = element.value;
+                V oldValue = element.value;
                 element.value = value;
                 return oldValue;
             }
@@ -106,6 +185,9 @@ public class HashTable<K, V> {
         return null;
     }
 
+    /**
+     * Doubles table capacity and relocate elements of table to new buckets.
+     */
     private void rehash() {
         capacity = capacity * 2 + 1;
         mod = capacity;
@@ -113,7 +195,7 @@ public class HashTable<K, V> {
         for (LinkedList bucket : buckets) {
             if (bucket != null) {
                 for (Object element : bucket) {
-                    TableElement tableElement = (TableElement) element;
+                    TableElement<K, V> tableElement = (TableElement) element;
                     putToBuckets(newBuckets, tableElement.key, tableElement.value);
                 }
             }
@@ -125,11 +207,17 @@ public class HashTable<K, V> {
         return size;
     }
 
-    private static class TableElement {
-        private Object key;
-        private Object value;
+    /**
+     * Represents element of the table.
+     *
+     * @param <K> key of the element.
+     * @param <V> value of the element.
+     */
+    private static class TableElement<K, V> {
+        private K key;
+        private V value;
 
-        public TableElement(Object key, Object value) {
+        public TableElement(K key, V value) {
             this.key = key;
             this.value = value;
         }

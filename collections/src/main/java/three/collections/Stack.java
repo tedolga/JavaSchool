@@ -6,12 +6,12 @@ package three.collections;
  * @author O. Tedikova
  * @version 1.0
  */
-public class Stack {
+public class Stack<T> {
 
     /**
      * Reference to the last element of the stack
      */
-    private StackElement top;
+    private StackElement<T> top;
 
     /**
      * Size of the stack
@@ -23,11 +23,11 @@ public class Stack {
      *
      * @param element value of the new element
      */
-    public void push(Object element) {
+    public void push(T element) {
         if (top == null) {
-            top = new StackElement(element, null);
+            top = new StackElement<T>(element, null);
         } else {
-            top = new StackElement(element, top);
+            top = new StackElement<T>(element, top);
         }
         size++;
     }
@@ -37,9 +37,9 @@ public class Stack {
      *
      * @return value of the top element, if stack is not empty, otherwise - returns null.
      */
-    public Object pop() {
+    public T pop() {
         if (top != null) {
-            Object removable = top.getValue();
+            T removable = top.getValue();
             top = top.getPrevious();
             size--;
             return removable;
@@ -53,7 +53,7 @@ public class Stack {
      *
      * @return value of the top element, if stack is not empty, otherwise - returns null.
      */
-    public Object peek() {
+    public T peek() {
         return (top != null) ? top.getValue() : null;
     }
 
@@ -69,12 +69,12 @@ public class Stack {
     /**
      * Represents an element of the stack
      */
-    private static class StackElement {
+    private static class StackElement<T> {
 
         /**
          * Value of the stack element
          */
-        private Object value;
+        private T value;
 
         /**
          * Reference to the previous element of the stack
@@ -82,12 +82,12 @@ public class Stack {
         private StackElement previous;
 
 
-        public StackElement(Object value, StackElement previous) {
+        public StackElement(T value, StackElement previous) {
             this.value = value;
             this.previous = previous;
         }
 
-        public Object getValue() {
+        public T getValue() {
             return value;
         }
 

@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author O. Tedikova
  * @version 1.0
  */
-public class Vector {
+public class Vector<T> {
     /**
      * Storage of elements
      */
@@ -51,7 +51,7 @@ public class Vector {
      *
      * @param element adding element
      */
-    public void addElement(Object element) {
+    public void addElement(T element) {
         provideCapacity(elementsCount + 1);
         elements[elementsCount++] = element;
     }
@@ -82,7 +82,7 @@ public class Vector {
      * @param element element to be inserted
      * @return true, if index is in vector bounds, or false in other case
      */
-    public boolean insertAt(int index, Object element) {
+    public boolean insertAt(int index, T element) {
         if (index >= 0 && index < elementsCount) {
             provideCapacity(elementsCount + 1);
             System.arraycopy(elements, index, elements, index + 1, elementsCount - index);
@@ -100,8 +100,8 @@ public class Vector {
      * @param index position of the required element
      * @return the element from specified position
      */
-    public Object getElement(int index) {
-        return (index >= 0 && index < elementsCount) ? elements[index] : null;
+    public T getElement(int index) {
+        return (index >= 0 && index < elementsCount) ? (T) elements[index] : null;
     }
 
     /**
@@ -111,7 +111,7 @@ public class Vector {
      * @param element value which will be utils to the element
      * @return true if index is in vector bounds, or false -in other case
      */
-    public boolean setElement(int index, Object element) {
+    public boolean setElement(int index, T element) {
         if (index >= 0 && index < elementsCount) {
             elements[index] = element;
             return true;
