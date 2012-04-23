@@ -13,6 +13,7 @@
         <module>flow-control</module>
         <module>essential</module>
         <module>collections</module>
+        <module>gui</module>
     </modules>
 
     <dependencyManagement>

@@ -176,6 +176,45 @@ public class LinkedList<T> {
         return (element != null) ? element.getValue() : null;
     }
 
+
+    /**
+     * Returns index of given element if it exists in list
+     *
+     * @param element given element value
+     * @return index of list element with given value, if it exists in list, otherwise - returns -1
+     */
+    public int indexOf(T element) {
+        int index = 0;
+
+        if (element == null) {
+            for (ListElement<T> currentElement = head; currentElement != null; currentElement = currentElement.getNext()) {
+                if (currentElement.getValue() == null) {
+                    return index;
+                }
+                index++;
+            }
+        } else {
+            for (ListElement<T> currentElement = head; currentElement != null; currentElement = currentElement.getNext()) {
+                if (element.equals(currentElement.getValue())) {
+                    return index;
+                }
+                index++;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Determines if element with given value exists in list
+     *
+     * @param element value of required element
+     * @return true, if element with specified value exists in list, otherwise -false.
+     */
+    public boolean contains(T element) {
+        return indexOf(element) != -1;
+    }
+
     /**
      * Returns element of the list at the specified position
      *
@@ -196,6 +235,7 @@ public class LinkedList<T> {
             return null;
         }
     }
+
 
     /**
      * Inner class which performs element of the list.
