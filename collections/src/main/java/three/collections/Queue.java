@@ -30,11 +30,11 @@ public class Queue<T> {
      */
     public void put(T element) {
         if (tail != null) {
-            QueueElement newElement = new QueueElement(element, null);
+            QueueElement<T> newElement = new QueueElement<T>(element, null);
             tail.setNext(newElement);
             tail = newElement;
         } else {
-            tail = new QueueElement(element, null);
+            tail = new QueueElement<T>(element, null);
             head = tail;
         }
         size++;

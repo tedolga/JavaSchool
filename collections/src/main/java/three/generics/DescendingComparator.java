@@ -9,7 +9,7 @@ import java.util.Comparator;
 public class DescendingComparator<T extends Comparable<? super T>> implements Comparator<Holder<T>> {
 
     @Override
-    public int compare(Holder o1, Holder o2) {
+    public int compare(Holder<T> o1, Holder<T> o2) {
         return o2.compareTo(o1);
     }
 }

@@ -79,7 +79,7 @@ public class HashTable<K, V> {
             return null;
         }
         for (Object next : values) {
-            TableElement<K, V> element = (TableElement) next;
+            TableElement<K, V> element = (TableElement<K, V>) next;
             if (element.key.equals(key)) {
                 return element.value;
             }
@@ -181,7 +181,7 @@ public class HashTable<K, V> {
                 return oldValue;
             }
         }
-        values.add(new TableElement(key, value));
+        values.add(new TableElement<K, V>(key, value));
         return null;
     }
 
