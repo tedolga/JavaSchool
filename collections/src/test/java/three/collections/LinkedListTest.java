@@ -110,4 +110,33 @@ public class LinkedListTest {
             Assert.assertEquals(String.valueOf(i), vector.getElement(i - 1));
         }
     }
+
+    @Test
+    public void testIndexOf() throws Exception {
+        LinkedList<String> testList = new LinkedList<String>();
+        Assert.assertEquals(-1, testList.indexOf(null));
+        Assert.assertEquals(-1, testList.indexOf("1"));
+        testList.addLast("1");
+        testList.addLast("2");
+        testList.addLast("3");
+        testList.addLast(null);
+        testList.addLast("5");
+        Assert.assertEquals(0, testList.indexOf("1"));
+        Assert.assertEquals(4, testList.indexOf("5"));
+        Assert.assertEquals(3, testList.indexOf(null));
+        Assert.assertEquals(-1, testList.indexOf("6"));
+    }
+
+    @Test
+    public void testContains() throws Exception {
+        LinkedList<String> testList = new LinkedList<String>();
+        Assert.assertFalse(testList.contains(null));
+        Assert.assertFalse(testList.contains("1"));
+        testList.addLast("1");
+        testList.addLast("2");
+        testList.addLast("3");
+        testList.addLast(null);
+        Assert.assertTrue(testList.contains("1"));
+        Assert.assertTrue(testList.contains(null));
+    }
 }
