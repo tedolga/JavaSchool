@@ -10,10 +10,27 @@ import java.io.Reader;
  */
 public class CharCountReader extends Reader {
 
+    /**
+     * Character which appearances while reading will be counted
+     */
     private char mainChar;
+
+    /**
+     * Basic reader
+     */
     private CharArrayReader reader;
+
+    /**
+     * Count of appearances of {@link  five.io.CharCountReader#mainChar} while reading.
+     */
     private int charCount;
 
+    /**
+     * Creates reader of characters array, which counts appearances of specified character.
+     *
+     * @param buffer   source array
+     * @param mainChar character which appearances while reading will be counted.
+     */
     public CharCountReader(char[] buffer, char mainChar) {
         this.mainChar = mainChar;
         reader = new CharArrayReader(buffer);

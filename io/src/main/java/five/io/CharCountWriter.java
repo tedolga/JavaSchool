@@ -10,11 +10,26 @@ import java.io.Writer;
  */
 public class CharCountWriter extends Writer {
 
+    /**
+     * Character which appearances while writing will be counted
+     */
     private char mainChar;
+
+    /**
+     * Basic writer.
+     */
     private CharArrayWriter writer;
+
+    /**
+     * Count of appearances of {@link  five.io.CharCountWriter#mainChar} while writing.
+     */
     private int charCount;
 
-
+    /**
+     * Creates writer of characters array, which counts appearances of specified character.
+     *
+     * @param mainChar character which appearances while writing will be counted.
+     */
     public CharCountWriter(char mainChar) {
         this.mainChar = mainChar;
         writer = new CharArrayWriter();
