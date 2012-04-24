@@ -18,7 +18,7 @@ public class HashTable<K, V> {
     /**
      * Array for element storing according to it's hashCodes
      */
-    private LinkedList[] buckets;
+    private LinkedList<TableElement<K, V>>[] buckets;
 
     /**
      * Number of buckets
@@ -74,14 +74,13 @@ public class HashTable<K, V> {
     public V get(K key) {
         checkNotNull("Key", key);
         int elementIndex = calculateIndex(key.hashCode());
-        LinkedList values = buckets[elementIndex];
+        LinkedList<TableElement<K, V>> values = buckets[elementIndex];
         if (values == null) {
             return null;
         }
-        for (Object next : values) {
-            TableElement<K, V> element = (TableElement<K, V>) next;
-            if (element.key.equals(key)) {
-                return element.value;
+        for (TableElement<K, V> next : values) {
+            if (next.key.equals(key)) {
+                return next.value;
             }
         }
         return null;
@@ -96,15 +95,14 @@ public class HashTable<K, V> {
     public V remove(Object key) {
         checkNotNull("Key", key);
         int elementIndex = calculateIndex(key.hashCode());
-        LinkedList values = buckets[elementIndex];
+        LinkedList<TableElement<K, V>> values = buckets[elementIndex];
         if (values == null) {
             return null;
         }
-        for (Object next : values) {
-            TableElement<K, V> element = (TableElement) next;
-            if (element.key.equals(key)) {
-                V returnValue = element.value;
-                values.remove(element);
+        for (TableElement<K, V> next : values) {
+            if (next.key.equals(key)) {
+                V returnValue = next.value;
+                values.remove(next);
                 size--;
                 return returnValue;
             }
@@ -167,17 +165,16 @@ public class HashTable<K, V> {
      * @return value of the given key, if element with specified key exists in table, null-otherwise
      */
     private V putToBucketList(LinkedList[] buckets, int index, K key, V value) {
-        LinkedList values = buckets[index];
+        LinkedList<TableElement<K, V>> values = buckets[index];
         if (values == null) {
-            buckets[index] = new LinkedList<TableElement>();
-            buckets[index].add(new TableElement(key, value));
+            buckets[index] = new LinkedList<TableElement<K, V>>();
+            buckets[index].add(new TableElement<K, V>(key, value));
             return null;
         }
-        for (Object next : values) {
-            TableElement<K, V> element = (TableElement) next;
-            if (element.key.equals(key)) {
-                V oldValue = element.value;
-                element.value = value;
+        for (TableElement<K, V> next : values) {
+            if (next.key.equals(key)) {
+                V oldValue = next.value;
+                next.value = value;
                 return oldValue;
             }
         }
@@ -191,12 +188,11 @@ public class HashTable<K, V> {
     private void rehash() {
         capacity = capacity * 2 + 1;
         mod = capacity;
-        LinkedList[] newBuckets = new LinkedList[capacity];
-        for (LinkedList bucket : buckets) {
+        LinkedList<TableElement<K, V>>[] newBuckets = new LinkedList[capacity];
+        for (LinkedList<TableElement<K, V>> bucket : buckets) {
             if (bucket != null) {
-                for (Object element : bucket) {
-                    TableElement<K, V> tableElement = (TableElement) element;
-                    putToBuckets(newBuckets, tableElement.key, tableElement.value);
+                for (TableElement<K, V> element : bucket) {
+                    putToBuckets(newBuckets, element.key, element.value);
                 }
             }
         }

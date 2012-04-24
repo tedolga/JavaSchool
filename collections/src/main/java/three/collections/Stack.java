@@ -79,10 +79,10 @@ public class Stack<T> {
         /**
          * Reference to the previous element of the stack
          */
-        private StackElement previous;
+        private StackElement<T> previous;
 
 
-        public StackElement(T value, StackElement previous) {
+        public StackElement(T value, StackElement<T> previous) {
             this.value = value;
             this.previous = previous;
         }
@@ -92,7 +92,7 @@ public class Stack<T> {
         }
 
 
-        public StackElement getPrevious() {
+        public StackElement<T> getPrevious() {
             return previous;
         }
 

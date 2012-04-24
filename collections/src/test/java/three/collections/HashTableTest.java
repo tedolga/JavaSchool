@@ -10,7 +10,7 @@ import org.junit.Test;
 public class HashTableTest {
     @Test
     public void testPut() throws Exception {
-        HashTable<String, Integer> table = new HashTable(10);
+        HashTable<String, Integer> table = new HashTable<String, Integer>(10);
         Assert.assertNull(table.put("1", 1));
         Assert.assertNull(table.put("2", 2));
         Assert.assertNull(table.put("3", 3));
@@ -23,7 +23,7 @@ public class HashTableTest {
 
     @Test
     public void testRehash() throws Exception {
-        HashTable table = new HashTable(0);
+        HashTable<Integer, String> table = new HashTable<Integer, String>(0);
         table.put(1, "1");
         table.put(5, "2");
         table.put(9, "3");
@@ -34,13 +34,13 @@ public class HashTableTest {
 
     @Test(expected = NullPointerException.class)
     public void testPutNull() {
-        HashTable table = new HashTable(5);
+        HashTable<Integer, String> table = new HashTable<Integer, String>(5);
         table.put(1, null);
     }
 
     @Test
     public void testGet() throws Exception {
-        HashTable table = new HashTable(4);
+        HashTable<Integer, String> table = new HashTable<Integer, String>(4);
         Assert.assertNull(table.get(17));
         table.put(1, "1");
         table.put(5, "2");
@@ -54,7 +54,7 @@ public class HashTableTest {
 
     @Test
     public void testRemove() throws Exception {
-        HashTable table = new HashTable(4);
+        HashTable<Integer, String> table = new HashTable<Integer, String>(4);
         Assert.assertNull(table.remove(17));
         table.put(1, "1");
         table.put(5, "2");

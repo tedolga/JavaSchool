@@ -152,10 +152,10 @@ public class LinkedList<T> {
      *
      * @return {@link three.collections.Vector} instance, containing all elements of the list
      */
-    public Vector toVector() {
-        Vector vector = new Vector(size);
+    public Vector<T> toVector() {
+        Vector<T> vector = new Vector<T>(size);
         int elementIndex = 0;
-        ListElement currentElement = head;
+        ListElement<T> currentElement = head;
         while (elementIndex < size) {
             vector.addElement(currentElement.getValue());
             currentElement = currentElement.getNext();

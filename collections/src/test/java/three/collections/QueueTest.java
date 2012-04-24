@@ -10,7 +10,7 @@ import org.junit.Test;
 public class QueueTest {
     @Test
     public void testPutGet() throws Exception {
-        Queue queue = new Queue();
+        Queue<String> queue = new Queue<String>();
         Assert.assertNull(queue.get());
         queue.put("1");
         queue.put("2");
@@ -24,7 +24,7 @@ public class QueueTest {
 
     @Test
     public void testPeek() throws Exception {
-        Queue queue = new Queue();
+        Queue<String> queue = new Queue<String>();
         Assert.assertNull(queue.peek());
         queue.put("1");
         queue.put("2");

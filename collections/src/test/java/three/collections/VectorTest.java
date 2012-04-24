@@ -8,16 +8,16 @@ import org.junit.Test;
  * @version 1.0
  */
 public class VectorTest {
-    private Vector testVector;
+    private Vector<String> testVector;
 
     @Test(expected = IllegalArgumentException.class)
     public void testBadCreation() throws Exception {
-        testVector = new Vector(-1);
+        testVector = new Vector<String>(-1);
     }
 
     @Test
     public void testGetCurrentSize() throws Exception {
-        testVector = new Vector(3);
+        testVector = new Vector<String>(3);
         Assert.assertEquals(0, testVector.getCurrentSize());
         testVector.addElement("first");
         testVector.addElement("second");
@@ -26,7 +26,7 @@ public class VectorTest {
 
     @Test
     public void testAddElement() throws Exception {
-        testVector = new Vector(1);
+        testVector = new Vector<String>(1);
         testVector.addElement("first");
         testVector.addElement("second");
         testVector.addElement("third");
@@ -36,7 +36,7 @@ public class VectorTest {
 
     @Test
     public void testRemoveAt() throws Exception {
-        testVector = new Vector(0);
+        testVector = new Vector<String>(0);
         testVector.addElement("first");
         testVector.addElement("second");
         testVector.addElement("third");
@@ -56,7 +56,7 @@ public class VectorTest {
 
     @Test
     public void testInsertAt() throws Exception {
-        testVector = new Vector(4);
+        testVector = new Vector<String>(4);
         testVector.addElement("0");
         testVector.addElement("1");
         testVector.addElement("2");
@@ -77,7 +77,7 @@ public class VectorTest {
 
     @Test
     public void testSetElement() throws Exception {
-        testVector = new Vector(4);
+        testVector = new Vector<String>(4);
         testVector.addElement("0");
         testVector.addElement("1");
         testVector.addElement("2");

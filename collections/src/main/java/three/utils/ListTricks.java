@@ -13,15 +13,22 @@ public class ListTricks {
     private static Random random = new Random();
 
     public static void main(String[] args) {
+
+        //List initialization
         List<Holder<Integer>> list = new ArrayList<Holder<Integer>>(10);
         printList(list);
         initializeRandomly(list, 5);
         printList(list);
+
+        //List sorting in ascending order (with usage compareTo() method from Holder class)
         Collections.sort(list);
         printList(list);
+
+        //List sorting in descending order (with usage of DescendingComparator)
         Collections.sort(list, new DescendingComparator<Integer>());
         printList(list);
 
+        //Converting array to list
         Holder[] array = new Holder[10];
         for (int i = 0; i < array.length; i++) {
             array[i] = new Holder<Integer>(i);

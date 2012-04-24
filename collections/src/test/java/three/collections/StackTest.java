@@ -10,7 +10,7 @@ import org.junit.Test;
 public class StackTest {
     @Test
     public void testPushPop() throws Exception {
-        Stack testStack = new Stack();
+        Stack<String> testStack = new Stack<String>();
         testStack.push("1");
         testStack.push("2");
         testStack.push("3");
@@ -23,7 +23,7 @@ public class StackTest {
 
     @Test
     public void testPeek() throws Exception {
-        Stack testStack = new Stack();
+        Stack<String> testStack = new Stack<String>();
         Assert.assertNull(testStack.peek());
         testStack.push("1");
         testStack.push("2");

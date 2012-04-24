@@ -18,6 +18,6 @@ public class ByteArrayIOTricksTest {
 
         Assert.assertArrayEquals(bytes, ByteArrayIOTricks.rewriteBytes(bytes));
 
-        Assert.assertArrayEquals(bytes, ByteArrayIOTricks.rewriteBytes(bytes));
+        Assert.assertArrayEquals(bytes, ByteArrayIOTricks.readBytes(bytes));
     }
 }
