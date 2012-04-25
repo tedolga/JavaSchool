@@ -27,7 +27,7 @@ public class ByteArrayIOTricks {
      * Reads array of bytes from {@link ByteArrayInputStream} and then returns read array
      *
      * @param sourceBytes array of bytes
-     * @return read arry of bytes
+     * @return read array of bytes
      * @throws IOException in case of input/output exceptions
      */
     public static byte[] readBytes(byte[] sourceBytes) throws IOException {

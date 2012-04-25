@@ -1,9 +1,6 @@
 package five.io.file;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @author O. Tedikova
@@ -12,14 +9,21 @@ import java.io.IOException;
 public class FileReadingMain {
 
     public static void main(String[] args) {
-
+        File myFile = new File("src/main/resources/my.txt");
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
-        char[] buffer;
+        CharArrayWriter charArrayWriter = new CharArrayWriter();
         try {
-            fileReader = new FileReader("my.txt");
+            fileReader = new FileReader(myFile);
             bufferedReader = new BufferedReader(fileReader);
+            char[] buffer = new char[100];
+            int count;
+            while ((count=bufferedReader.read(buffer)) != -1) {
+                charArrayWriter.write(buffer, 0, count);
+            }
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -29,10 +33,11 @@ public class FileReadingMain {
                 if (bufferedReader != null) {
                     bufferedReader.close();
                 }
-            } catch (IOException ignored) {
-
+            } catch (IOException ioe) {
+                 ioe.printStackTrace();
             }
         }
+        System.out.println(charArrayWriter.toCharArray());
 
     }
 }
