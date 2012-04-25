@@ -7,11 +7,11 @@ import java.io.*;
  * @version 1.0
  */
 public class CharReplacing {
-    private static final char OLD_CHAR = 'A';
-    private static final char NEW_CHAR = 'a';
+    private static final char OLD_CHAR = 'H';
+    private static final char NEW_CHAR = 'h';
     private static final String FILE_NAME = "src/main/resources/my.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         char[] fileChars;
         FileReader fileReader = null;
         FileWriter fileWriter = null;
@@ -20,18 +20,14 @@ public class CharReplacing {
             fileChars = CharReplacing.readConvertedChars(OLD_CHAR, NEW_CHAR, fileReader);
             fileWriter = new FileWriter(FILE_NAME);
             CharReplacing.writeToOutput(fileChars, fileWriter);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
-            closeSafely(fileReader);
-            closeSafely(fileWriter);
+            IOUtils.closeSafely(fileReader);
+            IOUtils.closeSafely(fileWriter);
         }
     }
 
 
-    public static char[] readConvertedChars(char oldChar, char newChar, Reader reader) {
+    public static char[] readConvertedChars(char oldChar, char newChar, Reader reader) throws IOException {
         FileCharReplaceReader fileCharReplaceReader = null;
         CharArrayWriter charArrayWriter = new CharArrayWriter();
         try {
@@ -41,20 +37,15 @@ public class CharReplacing {
             while ((count = fileCharReplaceReader.read(buffer)) != -1) {
                 charArrayWriter.write(buffer, 0, count);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
-            closeSafely(fileCharReplaceReader);
+            IOUtils.closeSafely(fileCharReplaceReader);
         }
         return charArrayWriter.toCharArray();
     }
 
-    public static void writeToOutput(char[] chars, Writer writer) {
+    public static void writeToOutput(char[] chars, Writer writer) throws IOException {
         BufferedWriter bufferedWriter = null;
         try {
-
             bufferedWriter = new BufferedWriter(writer);
             int off = 0;
             int length = chars.length;
@@ -67,20 +58,9 @@ public class CharReplacing {
                 off += portion;
             }
             bufferedWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
-            closeSafely(bufferedWriter);
+            IOUtils.closeSafely(bufferedWriter);
         }
     }
 
-    private static void closeSafely(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

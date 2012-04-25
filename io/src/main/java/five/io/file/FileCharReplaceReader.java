@@ -12,13 +12,11 @@ public class FileCharReplaceReader extends FilterReader {
 
     private char oldChar;
     private char newChar;
-    private Reader reader;
 
     public FileCharReplaceReader(char oldChar, char newChar, Reader reader) {
         super(reader);
         this.oldChar = oldChar;
         this.newChar = newChar;
-        this.reader = reader;
     }
 
     /**
@@ -28,7 +26,7 @@ public class FileCharReplaceReader extends FilterReader {
      */
     @Override
     public int read(char[] cbuf, int off, int len) throws IOException {
-        int result = reader.read(cbuf, off, len);
+        int result = in.read(cbuf, off, len);
         for (int i = off; i < len + off; i++) {
             if (cbuf[i] == oldChar) {
                 cbuf[i] = newChar;
@@ -49,7 +47,7 @@ public class FileCharReplaceReader extends FilterReader {
      */
     @Override
     public int read(char[] cbuf) throws IOException {
-        int result = reader.read(cbuf);
+        int result = in.read(cbuf);
         for (int i = 0; i < cbuf.length; i++) {
             if (cbuf[i] == oldChar) {
                 cbuf[i] = newChar;

@@ -8,9 +8,9 @@ import java.io.*;
  */
 public class FileReadingMain {
 
-    public static void main(String[] args) {
-        File myFile = new File("src/main/resources/my.txt");
-        FileReader fileReader = null;
+    public static void main(String[] args) throws IOException {
+        File myFile = new File("my.txt");
+        FileReader fileReader;
         BufferedReader bufferedReader = null;
         CharArrayWriter charArrayWriter = new CharArrayWriter();
         try {
@@ -21,25 +21,9 @@ public class FileReadingMain {
             while ((count = bufferedReader.read(buffer)) != -1) {
                 charArrayWriter.write(buffer, 0, count);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
-            closeSafely(fileReader);
-            closeSafely(bufferedReader);
+            IOUtils.closeSafely(bufferedReader);
         }
         System.out.println(charArrayWriter.toCharArray());
-
-    }
-
-    private static void closeSafely(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
