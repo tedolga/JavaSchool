@@ -1,7 +1,9 @@
 package five.io.file;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Tedikova O.
@@ -17,5 +19,15 @@ public class IOUtils {
 
             }
         }
+    }
+
+    public static ByteArrayOutputStream readFully(InputStream in) throws IOException {
+        byte[] buffer = new byte[1024];
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        int n;
+        while ((n = in.read(buffer)) > 0) {
+            byteArrayOutputStream.write(buffer, 0, n);
+        }
+        return byteArrayOutputStream;
     }
 }

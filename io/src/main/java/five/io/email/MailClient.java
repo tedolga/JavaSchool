@@ -1,6 +1,8 @@
 package five.io.email;
 
-import java.io.IOException;
+import five.io.file.IOUtils;
+
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -17,12 +19,29 @@ public class MailClient {
     }
 
     public static void main(String[] args) throws IOException {
-        MailClient mailClient = new MailClient("smtp.gmail.com", 587);
-        mailClient.connect();
+        System.setProperty("mail.smtp.starttls.enable", "true");
+        MailClient mailClient = new MailClient("smtp.yandex.ru", 25);
+        EMailMessage eMailMessage = new EMailMessage("smtp.yandex.ru", "tedolga@yandex.ru", "tedolga@yandex.ru", "Hello");
+        mailClient.sendMessage(eMailMessage);
     }
 
-    public void connect() throws IOException {
-        Socket socket = new Socket(host, port);
-        System.out.println(socket.getInetAddress());
+    public void sendMessage(EMailMessage mailMessage) throws IOException {
+        Socket socket = null;
+        PrintWriter writer = null;
+        try {
+            socket = new Socket(host, port);
+            OutputStream outputStream = socket.getOutputStream();
+            InputStream inputStream = socket.getInputStream();
+            writer = new PrintWriter(outputStream);
+            writer.write(mailMessage.formatMessage());
+            writer.flush();
+            ByteArrayOutputStream response = IOUtils.readFully(inputStream);
+            System.out.println("response = " + new String(response.toByteArray()));
+        } finally {
+            IOUtils.closeSafely(writer);
+            if (socket != null) {
+                socket.close();
+            }
+        }
     }
 }
