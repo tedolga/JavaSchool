@@ -26,20 +26,20 @@ public class FileReadingMain {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                closeSafely(fileReader);
-                closeSafely(bufferedReader);
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
+            closeSafely(fileReader);
+            closeSafely(bufferedReader);
         }
         System.out.println(charArrayWriter.toCharArray());
 
     }
 
-    private static void closeSafely(Closeable closeable) throws IOException {
+    private static void closeSafely(Closeable closeable) {
         if (closeable != null) {
-            closeable.close();
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

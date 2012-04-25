@@ -25,16 +25,11 @@ public class CharReplacing {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                closeSafely(fileReader);
-                closeSafely(fileWriter);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            closeSafely(fileReader);
+            closeSafely(fileWriter);
         }
-
-
     }
+
 
     public static char[] readConvertedChars(char oldChar, char newChar, Reader reader) {
         FileCharReplaceReader fileCharReplaceReader = null;
@@ -51,11 +46,7 @@ public class CharReplacing {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                closeSafely(fileCharReplaceReader);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            closeSafely(fileCharReplaceReader);
         }
         return charArrayWriter.toCharArray();
     }
@@ -79,17 +70,17 @@ public class CharReplacing {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                closeSafely(bufferedWriter);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            closeSafely(bufferedWriter);
         }
     }
 
-    private static void closeSafely(Closeable closeable) throws IOException {
+    private static void closeSafely(Closeable closeable) {
         if (closeable != null) {
-            closeable.close();
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
