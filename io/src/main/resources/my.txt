@@ -1,3 +1,8 @@
-Abstract class for reading character streams. The only methods that a subclass must implement are
-read(char[], int, int) and close(). Most subclasses, however, will override some of the methods
-defined here in order to provide higher efficiency, additional functionality, or both.
+Snorkeling (British spelling: snorkelling) is the practice of swimming on or through a body of water while equipped
+with a diving mask, a shaped tube called a snorkel, and usually swimfins. In cooler waters, a wetsuit may also be worn.
+ Use of this equipment allows the snorkeler to observe underwater attractions for extended periods of time with
+ relatively little effort.
+Snorkeling is a popular recreational activity, particularly at tropical resort and scuba diving locations.
+The primary appeal is the opportunity to observe underwater life in a natural setting without the complicated
+equipment and training required for scuba diving and it appeals to all ages because of how little effort there is,
+and without the exhaled bubbles of scuba-diving equipment.

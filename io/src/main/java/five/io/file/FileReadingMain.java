@@ -18,7 +18,7 @@ public class FileReadingMain {
             bufferedReader = new BufferedReader(fileReader);
             char[] buffer = new char[100];
             int count;
-            while ((count=bufferedReader.read(buffer)) != -1) {
+            while ((count = bufferedReader.read(buffer)) != -1) {
                 charArrayWriter.write(buffer, 0, count);
             }
         } catch (FileNotFoundException e) {
@@ -27,17 +27,19 @@ public class FileReadingMain {
             e.printStackTrace();
         } finally {
             try {
-                if (fileReader != null) {
-                    fileReader.close();
-                }
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
+                closeSafely(fileReader);
+                closeSafely(bufferedReader);
             } catch (IOException ioe) {
-                 ioe.printStackTrace();
+                ioe.printStackTrace();
             }
         }
         System.out.println(charArrayWriter.toCharArray());
 
+    }
+
+    private static void closeSafely(Closeable closeable) throws IOException {
+        if (closeable != null) {
+            closeable.close();
+        }
     }
 }
